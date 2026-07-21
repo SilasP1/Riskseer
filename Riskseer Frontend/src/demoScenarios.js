@@ -40,6 +40,23 @@ export const DEMO_SCENARIOS = [
           "Activity occurs during the authorized work window.",
           "No conflicting field signal is present.",
         ],
+        engineTrace: {
+          caseId: "RSK-240184-A",
+          continuity: "Attached to active work thread",
+          alignment: "Inside ticket area · within work window",
+          decisionState: "SAFE_TO_PROCEED",
+          urgency: "LOW",
+          responsePosture: "MONITOR",
+          evidence: [
+            { layer: "Observed", id: "OBS-TH-041", text: "Excavation signature received at 10:18 AM." },
+            { layer: "Derived", id: "DER-TKT-01", text: "Detection is within the saved ticket polygon and work window." },
+            { layer: "Inferred", id: "INF-WORK-01", text: "Activity is consistent with the supported work thread." },
+            { layer: "Assumed", id: "ASM-SCOPE-01", text: "The recorded work scope has not changed." },
+          ],
+          investigatorBrief:
+            "Saved evidence supports monitoring: the activity is inside the recorded ticket area and authorized window. Watch for a changed location or weakened context.",
+          citations: ["OBS-TH-041", "DER-TKT-01"],
+        },
       },
       {
         id: "TH-044",
@@ -61,6 +78,23 @@ export const DEMO_SCENARIOS = [
           "The new detection sits outside the ticket polygon.",
           "The nearby gas main increases the cost of assuming the scope is unchanged.",
         ],
+        engineTrace: {
+          caseId: "RSK-240184-A",
+          continuity: "Attached to the same work thread",
+          alignment: "Outside ticket area · active work window",
+          decisionState: "PROCEED_WITH_VERIFICATION",
+          urgency: "HIGH",
+          responsePosture: "VERIFY_BEFORE_PROCEEDING",
+          evidence: [
+            { layer: "Observed", id: "OBS-TH-044", text: "A second excavation signature arrived at 10:42 AM." },
+            { layer: "Derived", id: "DER-ZONE-02", text: "The event coordinates fall outside the saved ticket polygon." },
+            { layer: "Inferred", id: "INF-DRIFT-01", text: "The continuing work may have moved beyond its supported scope." },
+            { layer: "Assumed", id: "ASM-AUTH-01", text: "No revised field authorization has been received." },
+          ],
+          investigatorBrief:
+            "The detection remains connected to an active work thread, but its saved coordinates fall beyond the supported ticket area. Verify the changed location before continuing.",
+          citations: ["OBS-TH-044", "DER-ZONE-02"],
+        },
       },
     ],
     selectedAlertId: "TH-044",
