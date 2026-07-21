@@ -1241,10 +1241,19 @@ def compute_decision_support_integrity(
     else:
         reason = "Responsibility support is coherent across the current case layers"
 
+    if state == DecisionSupportState.CONFLICTED:
+        recommended_posture = ResponsePosture.ESCALATE
+    elif state == DecisionSupportState.DEGRADED:
+        recommended_posture = ResponsePosture.VERIFY_BEFORE_PROCEEDING
+    elif state == DecisionSupportState.PARTIAL:
+        recommended_posture = ResponsePosture.VERIFY
+    else:
+        recommended_posture = response_posture
+
     return DecisionSupportIntegrity(
         state=state,
         decision_risk=risk,
-        recommended_posture=response_posture,
+        recommended_posture=recommended_posture,
         reason=reason,
         confidence=support_confidence,
     )
@@ -1672,3 +1681,51 @@ def determine_response_posture(
         return ResponsePosture.VERIFY
 
     return ResponsePosture.MONITOR
+
+
+def reconcile_decision_with_support(
+    decision_state: DecisionState,
+    urgency: UrgencyLevel,
+    response_posture: ResponsePosture,
+    decision_support: DecisionSupportIntegrity,
+    defensibility: Optional[DecisionDefensibilityEvaluation] = None,
+) -> tuple[DecisionState, UrgencyLevel, ResponsePosture]:
+    """Prevent official posture from being more permissive than its support.
+
+    Responsibility integrity and defensibility describe the basis for the next
+    decision. They may escalate a permissive base result, but never downgrade a
+    stronger deterministic stop or escalation.
+    """
+    support_state = getattr(decision_support.state, "value", decision_support.state)
+    support_risk = getattr(decision_support.decision_risk, "value", decision_support.decision_risk)
+    defensibility_state = (
+        getattr(defensibility.state, "value", defensibility.state)
+        if defensibility is not None
+        else None
+    )
+
+    if support_state == "CONFLICTED" or support_risk == "CRITICAL":
+        if decision_state not in {DecisionState.STOP_WORK, DecisionState.HIGH_RISK_OF_MISJUDGMENT}:
+            decision_state = DecisionState.HIGH_RISK_OF_MISJUDGMENT
+        urgency = UrgencyLevel.CRITICAL
+        if response_posture != ResponsePosture.HOLD_WORK:
+            response_posture = ResponsePosture.ESCALATE
+        return decision_state, urgency, response_posture
+
+    if support_state == "DEGRADED" or support_risk == "HIGH" or defensibility_state == "LOW":
+        if decision_state == DecisionState.SAFE_TO_PROCEED:
+            decision_state = DecisionState.PROCEED_WITH_VERIFICATION
+        if urgency in {UrgencyLevel.LOW, UrgencyLevel.MODERATE}:
+            urgency = UrgencyLevel.HIGH
+        if response_posture in {ResponsePosture.MONITOR, ResponsePosture.VERIFY}:
+            response_posture = ResponsePosture.VERIFY_BEFORE_PROCEEDING
+        return decision_state, urgency, response_posture
+
+    if support_state == "PARTIAL" and decision_state == DecisionState.SAFE_TO_PROCEED:
+        return (
+            DecisionState.PROCEED_WITH_VERIFICATION,
+            UrgencyLevel.MODERATE if urgency == UrgencyLevel.LOW else urgency,
+            ResponsePosture.VERIFY,
+        )
+
+    return decision_state, urgency, response_posture

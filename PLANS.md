@@ -1,5 +1,67 @@
 # PLANS.md
 
+# Active Plan: OpenAI Competition Readiness
+
+## Objective
+
+- Make the existing excavation-focused Riskseer demo reliable, reproducible, and competition-ready.
+- Add a bounded OpenAI Investigator that explains saved backend truth with evidence citations.
+- Preserve deterministic case identity, evidence layers, decisions, urgency, and response posture as backend-owned truth.
+
+## Current System Analysis
+
+- `case.py` seeds prior cases but lifecycle gating can prevent documented next-day fixture events from attaching to the same stable ticket/asset work thread.
+- `case_logic.py` computes decision state before responsibility integrity and defensibility, allowing a safe/monitor result to conflict with degraded/high-risk support.
+- `source_adaptors/base.py` contains a copied concrete adapter and cannot provide the package's declared base interface.
+- `api.py` exposes saved case data, while the React app renders it; neither should recalculate operational truth.
+- The repository has no OpenAI integration, dependency manifest, root setup guide, or automated regression suite.
+
+## Workflow Selection
+
+- `WORKFLOWS/case_grouping.md`: stable prior-run case continuity.
+- `WORKFLOWS/case_evaluation.md` and `WORKFLOWS/decision_posture.md`: decision-support reconciliation.
+- `WORKFLOWS/explanation_generation.md`: AI output remains explanatory and evidence-cited.
+- A new `WORKFLOWS/openai_investigator.md`: bounded agent execution and validation.
+
+## Files Involved And Responsibilities
+
+- `case.py`: identity, continuity, attachment, and branching only.
+- `case_evaluation.py`: deterministic current-state and integrity-aware decision reconciliation.
+- `case_logic.py`: order the existing evaluation stages and persist their outputs.
+- `investigator.py`: read-only agent tools, structured output, citation validation, and no mutation of backend truth.
+- `api.py`: expose saved truth and invoke the investigator adapter; configurable CORS and debug data.
+- `main.py`: orchestration and collision-safe archive naming only.
+- `source_adaptors/base.py`: shared normalization and adapter contracts only.
+- `scripts/load_test_dataset.py`: cross-platform fixture loading only.
+- `Riskseer Frontend/src/App.jsx`: display saved backend and investigator results only.
+- Documentation, dependency manifests, workflows, tool definitions, and tests: setup and verification.
+
+## Boundary Risks
+
+- AI could appear to own decisions. Avoided by copying official state/posture from saved backend truth after model output and rejecting unknown citations.
+- Continuity could over-merge unrelated work. Avoided by permitting prior-run continuity only when stable identity support exists and normal match assessment still permits attachment.
+- Decision reconciliation could create circular logic. Avoided by deriving integrity posture from responsibility layers, then applying one deterministic escalation pass before lifecycle actionability.
+- Frontend could duplicate rules. Avoided by rendering API fields without calculating posture or urgency.
+
+## Minimal Change Strategy
+
+- Repair broken contracts and ordering rather than redesigning the domain model.
+- Introduce one investigator agent with three read-only case tools and a typed output contract.
+- Keep the demo excavation-specific; temporary security remains future scope.
+
+## Validation Steps
+
+- Run Python import/compile and pytest regression tests.
+- Run the three-case fixture and the documented two-stage continuity fixture.
+- Run API tests with a fake investigator runner; do not require or store an API key.
+- Run frontend lint and production build.
+- Review the complete diff, scan for secrets, publish one isolated branch/commit/draft PR, and verify the remote commit.
+
+## Stop Conditions
+
+- Stop if a fix requires frontend-owned operational truth, destructive history rewriting, repository visibility changes, or exposing credentials/proprietary internals.
+
+
 ## Purpose
 
 This file is the reusable planning template for non-trivial Riskseer work.

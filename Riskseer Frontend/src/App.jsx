@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://127.0.0.1:8000";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ??
+  import.meta.env.VITE_API_BASE ??
+  "http://127.0.0.1:8000";
 
 function titleCaseFromEnum(value) {
   if (!value) return "Unknown";
@@ -77,11 +80,11 @@ function getDecisionDefensibility(caseData) {
     : {};
 }
 
-function getDefensibilityState(caseData) {
+function _getDefensibilityState(caseData) {
   return String(getDecisionDefensibility(caseData).state || "").toUpperCase();
 }
 
-function getResponsibilityLayerState(caseData, key) {
+function _getResponsibilityLayerState(caseData, key) {
   const layer = getResponsibilityLayers(caseData)[key];
   return String(layer?.state || "").toUpperCase();
 }
@@ -341,7 +344,6 @@ function buildDamageLine(caseData) {
 }
 
 function buildEscalationSummary(caseData) {
-  const chain = buildResponsibilityChainStory(caseData);
   if (caseData.ui_summary?.action) {
     return caseData.ui_summary.action;
   }
@@ -689,7 +691,7 @@ function buildSpotlightLooksNormal(caseData) {
   return [...new Set(items)].slice(0, 3);
 }
 
-function buildSpotlightWeakPoints(caseData) {
+function _buildSpotlightWeakPoints(caseData) {
   const whyNow = caseData.why_now || [];
   const weakPoints = [];
 
@@ -718,7 +720,7 @@ function buildSpotlightWeakPoints(caseData) {
   return [...new Set(weakPoints)].slice(0, 4);
 }
 
-function buildSpotlightChecks(caseData) {
+function _buildSpotlightChecks(caseData) {
   const checks = [];
 
   if ((caseData.ticket_ids || []).length > 0) {
@@ -733,7 +735,7 @@ function buildSpotlightChecks(caseData) {
   return checks.slice(0, 3);
 }
 
-function buildSpotlightWhyMatters(caseData) {
+function _buildSpotlightWhyMatters(caseData) {
   const heavy = (caseData.behavioral_risk_assessment?.concerns || []).some((item) =>
     /mechanized|heavy/i.test(item || "")
   );
@@ -766,7 +768,7 @@ function describeSupportStrength(value) {
   return { value: "Strong", detail: "lines up cleanly" };
 }
 
-function buildMissabilityReasons(caseData) {
+function _buildMissabilityReasons(caseData) {
   const reasons = [];
   const ticketCount = getRelevantTicketCount(caseData);
   const whyNow = caseData.why_now || [];
@@ -1386,7 +1388,7 @@ function buildQueueEvidenceLine(caseData) {
   return parts.join(" | ");
 }
 
-function buildQueueDecisionLine(caseData) {
+function _buildQueueDecisionLine(caseData) {
   const chain = buildResponsibilityChainStory(caseData);
   const action = chain.command.toUpperCase();
 
@@ -1394,8 +1396,7 @@ function buildQueueDecisionLine(caseData) {
   return `${action} - ${reason}`;
 }
 
-function buildQueueActionHint(caseData) {
-  const chain = buildResponsibilityChainStory(caseData);
+function _buildQueueActionHint(caseData) {
   if (caseData.ui_summary?.action) {
     const action = String(caseData.ui_summary.action).replace(/\.$/, "");
     if (caseData.response_posture === "HOLD_WORK") return `Stop - ${action.charAt(0).toLowerCase()}${action.slice(1)}`;
@@ -1418,7 +1419,7 @@ function buildQueueActionHint(caseData) {
   return "Monitor - still exposed if conditions change";
 }
 
-function buildQueueActivityLabel(caseData) {
+function _buildQueueActivityLabel(caseData) {
   if (caseData.status !== "ACTIVE") {
     return "Live activity: No";
   }
@@ -3052,6 +3053,9 @@ export default function App() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [investigations, setInvestigations] = useState({});
+  const [investigationLoading, setInvestigationLoading] = useState(false);
+  const [investigationError, setInvestigationError] = useState("");
 
   useEffect(() => {
     async function fetchCases() {
@@ -3161,7 +3165,7 @@ export default function App() {
     [casesWithRelations, filters]
   );
 
-  const presetCounts = useMemo(
+  const _presetCounts = useMemo(
     () => ({
       stopRequired: casesWithRelations.filter(
         (item) => item.status === "ACTIVE" && item.response_posture === "HOLD_WORK"
@@ -3181,7 +3185,7 @@ export default function App() {
     [casesWithRelations]
   );
 
-  const hiddenRiskCases = useMemo(
+  const _hiddenRiskCases = useMemo(
     () =>
       [...casesWithRelations]
         .filter((item) => item.hiddenRisk?.eligible)
@@ -3193,7 +3197,7 @@ export default function App() {
         }),
     [casesWithRelations]
   );
-  const stableActiveCases = useMemo(
+  const _stableActiveCases = useMemo(
     () =>
       [...filteredCases]
         .filter((item) => item.status === "ACTIVE" && item.response_posture === "MONITOR")
@@ -3217,7 +3221,7 @@ export default function App() {
     [casesWithRelations]
   );
 
-  const informationGapCases = useMemo(
+  const _informationGapCases = useMemo(
     () =>
       [...casesWithRelations]
         .filter((item) => item.informationGap?.eligible)
@@ -3230,7 +3234,7 @@ export default function App() {
     [casesWithRelations]
   );
 
-  const conflictCases = useMemo(
+  const _conflictCases = useMemo(
     () =>
       [...casesWithRelations]
         .filter((item) => item.conflictLayer?.eligible)
@@ -3331,9 +3335,9 @@ export default function App() {
   const spotlightCase =
     [...filteredCases].sort(compareCasePriority)[0] ??
     selected;
-  const hiddenRiskSpotlight = hiddenRiskCases[0] ?? null;
-  const informationGapSpotlight = informationGapCases[0] ?? null;
-  const conflictSpotlight = conflictCases[0] ?? null;
+  const _hiddenRiskSpotlight = _hiddenRiskCases[0] ?? null;
+  const _informationGapSpotlight = _informationGapCases[0] ?? null;
+  const _conflictSpotlight = _conflictCases[0] ?? null;
   const activeFilterChips = [
     filters.search ? `Search: ${filters.search}` : null,
     filters.status !== "ALL" ? `Status: ${titleCaseFromEnum(filters.status)}` : null,
@@ -3381,6 +3385,27 @@ export default function App() {
       setSelectedId(spotlightCase.case_id);
     }
     navigateToPage("queue");
+  };
+
+  const runInvestigation = async () => {
+    if (!selected?.case_id || investigationLoading) return;
+    setInvestigationLoading(true);
+    setInvestigationError("");
+    try {
+      const response = await fetch(
+        `${API_BASE}/api/cases/${encodeURIComponent(selected.case_id)}/investigate`,
+        { method: "POST" }
+      );
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.detail || `Investigator returned ${response.status}`);
+      }
+      setInvestigations((current) => ({ ...current, [selected.case_id]: payload }));
+    } catch (investigationFailure) {
+      setInvestigationError(String(investigationFailure.message || investigationFailure));
+    } finally {
+      setInvestigationLoading(false);
+    }
   };
 
   if (loading) {
@@ -3432,6 +3457,7 @@ export default function App() {
     { id: "decision", label: "Decision" },
     { id: "chain", label: "Chain" },
     { id: "evidence", label: "Evidence" },
+    { id: "investigator", label: "AI Investigator" },
   ];
 
   return (
@@ -3995,6 +4021,69 @@ export default function App() {
                       </Panel>
                     </div>
                   </details>
+                </div>
+              ) : null}
+
+              {activeTab === "investigator" ? (
+                <div className="system-stack">
+                  <Panel
+                    eyebrow="OpenAI Investigator"
+                    title="Evidence-cited operator brief"
+                    tone="default"
+                  >
+                    <p className="panel-summary">
+                      Riskseer&apos;s backend decision is locked at{" "}
+                      <strong>{titleCaseFromEnum(selected.decision_state)}</strong> with a{" "}
+                      <strong>{titleCaseFromEnum(selected.response_posture)}</strong> posture.
+                      The investigator can explain that result, but cannot change it.
+                    </p>
+                    <button
+                      type="button"
+                      className="stable-summary__button"
+                      onClick={runInvestigation}
+                      disabled={investigationLoading}
+                    >
+                      {investigationLoading ? "Investigating..." : "Run investigator"}
+                    </button>
+                    {investigationError ? (
+                      <p className="list-block__empty">{investigationError}</p>
+                    ) : null}
+                  </Panel>
+
+                  {investigations[selected.case_id] ? (
+                    <Panel
+                      eyebrow={`Model: ${investigations[selected.case_id].model}`}
+                      title={investigations[selected.case_id].summary}
+                      tone="default"
+                    >
+                      <div className="triage-grid triage-grid--compact">
+                        <ListBlock
+                          title="What looks normal"
+                          items={(investigations[selected.case_id].what_looks_normal || []).map(
+                            (item) => `${item.statement} [${item.citation_ids.join(", ")}]`
+                          )}
+                          emptyLabel="No normal-looking signals were identified."
+                        />
+                        <ListBlock
+                          title="Weak support and unknowns"
+                          items={[
+                            ...(investigations[selected.case_id].weak_support || []),
+                            ...(investigations[selected.case_id].unknowns || []),
+                          ].map(
+                            (item) => `${item.statement} [${item.citation_ids.join(", ")}]`
+                          )}
+                          emptyLabel="No weak or unknown support was identified."
+                        />
+                        <ListBlock
+                          title="Recommended checks"
+                          items={(investigations[selected.case_id].recommended_checks || []).map(
+                            (item) => `${item.statement} [${item.citation_ids.join(", ")}]`
+                          )}
+                          emptyLabel="No additional checks were returned."
+                        />
+                      </div>
+                    </Panel>
+                  ) : null}
                 </div>
               ) : null}
             </div>

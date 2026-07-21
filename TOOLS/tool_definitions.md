@@ -333,6 +333,26 @@ If a tool and the code diverge, the code wins and the tool definition must be up
 - Must not:
   become a second evaluator
 
+### `investigate_saved_case`
+
+- Type: composite
+- Owner files:
+  - `investigator.py`
+  - `api.py`
+- Current function mapping:
+  - `build_evidence_catalog`
+  - `build_agent`
+  - `finalize_brief`
+  - `investigate_case`
+- Purpose:
+  produce a structured, evidence-cited brief from an already-evaluated case
+- Read-only agent tools:
+  - `get_case_decision`
+  - `get_case_evidence`
+  - `get_case_change`
+- Must not:
+  mutate case truth, accept model-authored decision/posture, or allow unknown citations
+
 ---
 
 ## Tool Rules

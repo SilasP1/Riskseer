@@ -1,0 +1,94 @@
+# Riskseer
+
+Riskseer catches the weak assumptions behind field decisions before they turn
+into damage. The competition demo is focused on excavation: it groups field
+activity into continuing cases, separates facts from inference, evaluates the
+support behind the next decision, and shows operators what needs attention now.
+
+The deterministic Riskseer engine owns case identity, decision state, urgency,
+and response posture. The optional OpenAI Investigator reads that saved result
+through bounded tools and produces a concise, evidence-cited brief. It cannot
+change or soften the backend decision.
+
+## Quick start
+
+Python 3.10+ and Node.js 20+ are recommended.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+python scripts/load_test_dataset.py demo_three_cases
+python main.py
+python -m uvicorn api:app --reload
+```
+
+On Windows, activate with `.venv\Scripts\Activate.ps1` and load a fixture with
+`powershell -File scripts\Load-TestDataset.ps1 demo_three_cases`.
+
+In a second terminal:
+
+```bash
+cd "Riskseer Frontend"
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`. The API runs at `http://127.0.0.1:8000`.
+
+## OpenAI Investigator
+
+Create an API key in your own OpenAI project and set it only in your local
+environment. Never paste it into source code or commit it.
+
+```bash
+export OPENAI_API_KEY="your-key"
+# Optional; defaults to gpt-5.6
+export RISKSEER_OPENAI_MODEL="gpt-5.6"
+```
+
+The integration uses one OpenAI Agents SDK agent, three read-only case tools,
+Pydantic structured output, and a server-side citation allowlist. See the
+[OpenAI Agents SDK guide](https://developers.openai.com/api/docs/guides/agents)
+and [structured output documentation](https://openai.github.io/openai-agents-python/agents/).
+
+Useful endpoints:
+
+- `GET /api/health`
+- `GET /api/ai/status`
+- `GET /api/cases`
+- `POST /api/cases/{case_id}/investigate`
+
+For a hosted frontend, set `VITE_API_BASE_URL`. For a hosted API, set the
+comma-separated `RISKSEER_CORS_ORIGINS`. Raw report rows are excluded unless
+`RISKSEER_API_DEBUG=true`.
+
+## Validation
+
+```bash
+.venv/bin/python -m pytest
+.venv/bin/python -m compileall -q .
+cd "Riskseer Frontend"
+npm run lint
+npm run build
+```
+
+The staged continuity fixture is also available:
+
+```bash
+python scripts/load_test_dataset.py rim_rich/stage_01_baseline
+python main.py
+python scripts/load_test_dataset.py rim_rich/stage_02_evolution
+python main.py
+```
+
+The second run should preserve three case threads and compare them with their
+prior snapshots.
+
+## Safety boundary
+
+Riskseer is decision support, not a replacement for required locating,
+verification, supervision, or emergency procedures. Model output is an
+explanation of backend evidence—not authorization to proceed. The architecture
+can later support adjacent temporary-security workflows, but that ontology is
+outside this excavation demo.
