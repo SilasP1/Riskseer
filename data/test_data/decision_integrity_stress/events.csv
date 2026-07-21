@@ -1,0 +1,42 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E2001,2026-04-06T15:10:00Z,29.10010,-81.70010,field,0.42,inspection,hand crew
+E2002,2026-04-07T17:05:00Z,29.10016,-81.70016,field,0.44,inspection,hand crew
+E2011,2026-04-06T14:20:00Z,29.11010,-81.71010,field,0.46,inspection,hand crew
+E2012,2026-04-07T16:35:00Z,29.11018,-81.71018,field,0.51,inspection,hand crew
+E2021,2026-04-06T13:15:00Z,29.12010,-81.72010,field,0.55,inspection,hand crew
+E2022,2026-04-07T16:42:00Z,29.12018,-81.72018,field,0.74,excavation,mini excavator
+E2031,2026-04-07T17:00:00Z,29.13010,-81.73010,field,0.72,excavation,backhoe
+E2032,2026-04-07T17:20:00Z,29.13016,-81.73016,field,0.84,excavation,backhoe
+E2041,2026-04-07T17:08:00Z,29.14010,-81.74010,field,0.76,boring,hdd rig
+E2042,2026-04-07T17:28:00Z,29.14016,-81.74016,field,0.88,boring,directional drill
+E2051,2026-04-06T15:40:00Z,29.15010,-81.75010,field,0.47,inspection,hand crew
+E2052,2026-04-07T16:55:00Z,29.15018,-81.75018,field,0.53,inspection,hand crew
+E2061,2026-04-06T23:10:00Z,29.16010,-81.76010,field,0.50,inspection,hand crew
+E2062,2026-04-07T10:05:00Z,29.16018,-81.76018,field,0.59,excavation,hand dig
+E2071,2026-04-06T21:20:00Z,29.17010,-81.77010,field,0.49,inspection,hand crew
+E2072,2026-04-07T08:35:00Z,29.17018,-81.77018,field,0.58,excavation,hand dig
+E2081,2026-04-06T19:00:00Z,29.18010,-81.78010,field,0.45,inspection,hand crew
+E2082,2026-04-07T07:55:00Z,29.18016,-81.78016,field,0.47,inspection,hand crew
+E2091,2026-04-05T09:00:00Z,29.19010,-81.79010,field,0.43,inspection,hand crew
+E2092,2026-04-07T08:10:00Z,29.19016,-81.79016,field,0.57,excavation,vac truck
+E2101,2026-04-04T08:20:00Z,29.20010,-81.80010,field,0.45,inspection,hand crew
+E2102,2026-04-05T09:25:00Z,29.20018,-81.80018,field,0.54,excavation,hand dig
+E2111,2026-04-04T07:40:00Z,29.21010,-81.81010,field,0.41,inspection,hand crew
+E2112,2026-04-05T10:00:00Z,29.21016,-81.81016,field,0.44,inspection,hand crew
+E2121,2026-04-03T12:10:00Z,29.22010,-81.82010,field,0.66,excavation,backhoe
+E2122,2026-04-03T12:32:00Z,29.22016,-81.82016,field,0.82,excavation,backhoe
+E2131,2026-04-01T09:20:00Z,29.23010,-81.83010,field,0.39,inspection,hand crew
+E2132,2026-04-02T11:10:00Z,29.23018,-81.83018,field,0.46,excavation,hand crew
+E2133,2026-04-03T13:15:00Z,29.23022,-81.83022,field,0.51,excavation,hand crew
+E2141,2026-04-05T12:00:00Z,29.24010,-81.84010,field,0.40,inspection,hand crew
+E2142,2026-04-07T17:00:00Z,29.24016,-81.84016,field,0.46,inspection,hand crew
+E2151,2026-04-05T13:10:00Z,29.25010,-81.85010,field,0.52,inspection,hand crew
+E2152,2026-04-07T17:18:00Z,29.25018,-81.85018,field,0.76,excavation,mini excavator
+E2161,2026-04-06T16:10:00Z,29.26010,-81.86010,field,0.43,inspection,hand crew
+E2162,2026-04-07T16:20:00Z,29.26016,-81.86016,field,0.49,inspection,hand crew
+E2171,2026-04-06T22:40:00Z,29.27010,-81.87010,field,0.44,inspection,hand crew
+E2172,2026-04-07T11:15:00Z,29.27016,-81.87016,field,0.63,boring,hydrovac
+E2181,2026-04-02T10:10:00Z,29.28010,-81.88010,field,0.47,inspection,hand crew
+E2182,2026-04-03T14:05:00Z,29.28016,-81.88016,field,0.69,boring,directional drill
+E2191,2026-04-06T14:20:00Z,29.29010,-81.89010,field,0.41,inspection,hand crew
+E2192,2026-04-07T17:12:00Z,29.29016,-81.89016,field,0.46,inspection,hand crew

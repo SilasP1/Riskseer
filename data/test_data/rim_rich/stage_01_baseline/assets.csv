@@ -1,0 +1,4 @@
+asset_id,asset_type,lat,lon
+RICH-A-WATER,water_service,40.11003,-75.11002
+RICH-B-GAS,gas_main,40.12045,-75.12016
+RICH-C-TRANS,transmission_gas,40.13008,-75.13004

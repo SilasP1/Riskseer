@@ -1,0 +1,4 @@
+ticket_id,start_time,end_time,center_lat,center_lon,radius_m,contractor,work_type,status,submitted_at
+DEMO-T-A,2026-04-15T12:00:00Z,2026-04-15T21:00:00Z,40.21000,-75.21000,95,Atlas Utility,service renewal,ACTIVE,2026-04-15T10:15:00Z
+DEMO-T-B,2026-04-15T13:00:00Z,2026-04-15T21:30:00Z,40.22000,-75.22000,58,Cobalt Civil,main repair,ACTIVE,2026-04-15T10:45:00Z
+DEMO-T-C,2026-04-15T14:00:00Z,2026-04-15T20:00:00Z,40.23080,-75.23080,42,DeepPath Boring,hdd crossing,ACTIVE,2026-04-15T11:30:00Z

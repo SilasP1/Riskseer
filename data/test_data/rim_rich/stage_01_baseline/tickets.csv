@@ -1,0 +1,4 @@
+ticket_id,start_time,end_time,center_lat,center_lon,radius_m,contractor,work_type,status,submitted_at
+RICH-T-A,2026-04-14T12:00:00Z,2026-04-14T22:00:00Z,40.11000,-75.11000,100,Atlas Trench,service renewal,ACTIVE,2026-04-14T10:45:00Z
+RICH-T-B,2026-04-14T14:30:00Z,2026-04-14T22:00:00Z,40.12000,-75.12000,55,Cobalt Civil,main repair,ACTIVE,2026-04-14T11:20:00Z
+RICH-T-C,2026-04-14T15:30:00Z,2026-04-14T21:00:00Z,40.13090,-75.13090,45,DeepPath Boring,hdd crossing,ACTIVE,2026-04-14T12:15:00Z

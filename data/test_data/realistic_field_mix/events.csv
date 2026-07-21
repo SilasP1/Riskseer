@@ -1,0 +1,51 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E2601,2026-04-07T14:05:00Z,29.26010,-81.86010,field,0.34,inspection,hand crew
+E2602,2026-04-08T16:10:00Z,29.26016,-81.86016,field,0.36,inspection,hand crew
+E2701,2026-04-07T14:20:00Z,29.27010,-81.87010,field,0.38,daylighting,hand dig
+E2702,2026-04-08T16:22:00Z,29.27016,-81.87016,field,0.39,daylighting,hand dig
+E2801,2026-04-07T14:35:00Z,29.28010,-81.88010,field,0.41,potholing,vacuum truck
+E2802,2026-04-08T16:34:00Z,29.28016,-81.88016,field,0.43,potholing,vacuum truck
+E2901,2026-04-07T14:50:00Z,29.29010,-81.89010,field,0.35,inspection,locator
+E2902,2026-04-08T16:46:00Z,29.29016,-81.89016,field,0.37,inspection,locator
+E3001,2026-04-07T15:05:00Z,29.30010,-81.90010,field,0.36,inspection,hand crew
+E3002,2026-04-08T16:58:00Z,29.30016,-81.90016,field,0.39,inspection,hand crew
+E3003,2026-04-08T17:32:00Z,29.30018,-81.90018,field,0.41,daylighting,hand dig
+E3101,2026-04-07T15:20:00Z,29.31010,-81.91010,field,0.40,daylighting,hand dig
+E3102,2026-04-08T17:10:00Z,29.31016,-81.91016,field,0.42,daylighting,hand dig
+E3201,2026-04-07T15:35:00Z,29.32010,-81.92010,field,0.44,potholing,vacuum truck
+E3202,2026-04-08T17:22:00Z,29.32016,-81.92016,field,0.45,potholing,vacuum truck
+E3301,2026-04-07T15:50:00Z,29.33010,-81.93010,field,0.33,inspection,hand crew
+E3302,2026-04-08T17:34:00Z,29.33016,-81.93016,field,0.35,inspection,hand crew
+E3401,2026-04-07T16:05:00Z,29.34010,-81.94010,field,0.37,inspection,locator
+E3402,2026-04-08T17:46:00Z,29.34016,-81.94016,field,0.39,inspection,locator
+E3501,2026-04-07T16:20:00Z,29.35010,-81.95010,field,0.41,daylighting,hand dig
+E3502,2026-04-08T17:58:00Z,29.35016,-81.95016,field,0.43,daylighting,hand dig
+E3601,2026-04-07T16:35:00Z,29.36010,-81.96010,field,0.38,inspection,hand crew
+E3602,2026-04-08T18:10:00Z,29.36016,-81.96016,field,0.40,inspection,hand crew
+E3701,2026-04-07T16:50:00Z,29.37010,-81.97010,field,0.46,potholing,vacuum truck
+E3702,2026-04-08T17:12:00Z,29.37016,-81.97016,field,0.48,potholing,vacuum truck
+E3801,2026-04-07T17:05:00Z,29.38010,-81.98010,field,0.36,inspection,hand crew
+E3802,2026-04-08T17:24:00Z,29.38016,-81.98016,field,0.38,inspection,hand crew
+E3901,2026-04-07T17:20:00Z,29.39010,-81.99010,field,0.39,daylighting,hand dig
+E3902,2026-04-08T17:36:00Z,29.39016,-81.99016,field,0.41,daylighting,hand dig
+E4001,2026-04-07T17:35:00Z,29.40010,-82.00010,field,0.35,inspection,locator
+E4002,2026-04-08T17:48:00Z,29.40016,-82.00016,field,0.37,inspection,locator
+E4101,2026-04-07T17:50:00Z,29.41010,-82.01010,field,0.43,potholing,vacuum truck
+E4102,2026-04-08T17:55:00Z,29.41016,-82.01016,field,0.45,potholing,vacuum truck
+E4201,2026-04-07T15:15:00Z,29.42010,-82.02010,field,0.48,inspection,hand crew
+E4202,2026-04-08T17:14:00Z,29.42016,-82.02016,field,0.52,inspection,hand crew
+E4301,2026-04-07T15:40:00Z,29.43010,-82.03010,field,0.44,inspection,hand crew
+E4302,2026-04-08T17:26:00Z,29.43016,-82.03016,field,0.54,daylighting,hand dig
+E4401,2026-04-07T16:00:00Z,29.44010,-82.04010,field,0.46,potholing,vacuum truck
+E4402,2026-04-08T17:38:00Z,29.44016,-82.04016,field,0.56,potholing,vacuum truck
+E4501,2026-04-08T17:20:00Z,29.45010,-82.05010,field,0.79,excavation,backhoe
+E4502,2026-04-08T17:42:00Z,29.45016,-82.05016,field,0.87,excavation,backhoe
+E4601,2026-04-07T13:10:00Z,29.46010,-82.06010,field,0.58,excavation,mini excavator
+E4602,2026-04-08T09:05:00Z,29.46016,-82.06016,field,0.62,excavation,mini excavator
+E4701,2026-04-07T12:30:00Z,29.47010,-82.07010,field,0.34,inspection,hand crew
+E4702,2026-04-08T08:40:00Z,29.47016,-82.07016,field,0.36,inspection,hand crew
+E4901,2026-04-02T14:15:00Z,29.49010,-82.09010,field,0.32,inspection,hand crew
+E4902,2026-04-03T10:30:00Z,29.49016,-82.09016,field,0.36,daylighting,hand dig
+E4903,2026-04-04T08:20:00Z,29.49020,-82.09020,field,0.40,potholing,vacuum truck
+E5001,2026-04-01T13:45:00Z,29.50010,-82.10010,field,0.43,inspection,hand crew
+E5002,2026-04-02T09:10:00Z,29.50016,-82.10016,field,0.47,excavation,mini excavator

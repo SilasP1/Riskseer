@@ -1,0 +1,4 @@
+asset_id,asset_type,lat,lon
+DEMO-A-ASSET,water_main,40.21004,-75.21003
+DEMO-B-ASSET,gas_main,40.22022,-75.22010
+DEMO-C-ASSET,transmission_gas,40.23008,-75.23003

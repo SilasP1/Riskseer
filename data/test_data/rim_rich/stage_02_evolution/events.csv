@@ -1,0 +1,31 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type,contractor,work_type
+RICH-A-E101,2026-04-15T13:00:00Z,40.11000,-75.11000,field_sensor,0.18,inspection,locator,Atlas Trench,service renewal
+RICH-A-E102,2026-04-15T13:10:00Z,40.11001,-75.11000,field_sensor,0.19,inspection,spotter,Atlas Trench,service renewal
+RICH-A-E103,2026-04-15T13:20:00Z,40.11002,-75.11001,field_sensor,0.23,excavation,hand tools,Atlas Trench,service renewal
+RICH-A-E104,2026-04-15T13:30:00Z,40.11003,-75.11001,field_sensor,0.27,excavation,vacuum truck,Atlas Trench,service renewal
+RICH-A-E105,2026-04-15T13:40:00Z,40.11003,-75.11002,field_sensor,0.29,excavation,vacuum truck,Atlas Trench,service renewal
+RICH-A-E106,2026-04-15T13:50:00Z,40.11004,-75.11002,field_sensor,0.28,excavation,hand tools,Atlas Trench,service renewal
+RICH-A-E107,2026-04-15T14:00:00Z,40.11004,-75.11003,field_sensor,0.26,inspection,spotter,Atlas Trench,service renewal
+RICH-A-E108,2026-04-15T14:10:00Z,40.11003,-75.11003,field_sensor,0.24,inspection,spotter,Atlas Trench,service renewal
+RICH-A-E109,2026-04-15T14:20:00Z,40.11002,-75.11002,field_sensor,0.22,inspection,spotter,Atlas Trench,service renewal
+RICH-A-E110,2026-04-15T14:30:00Z,40.11001,-75.11001,field_sensor,0.20,inspection,spotter,Atlas Trench,service renewal
+RICH-B-E101,2026-04-15T15:00:00Z,40.12060,-75.12024,field_sensor,0.70,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E102,2026-04-15T15:10:00Z,40.12068,-75.12028,field_sensor,0.73,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E103,2026-04-15T15:20:00Z,40.12076,-75.12032,field_sensor,0.76,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E104,2026-04-15T15:30:00Z,40.12084,-75.12036,field_sensor,0.79,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E105,2026-04-15T15:40:00Z,40.12092,-75.12040,field_sensor,0.82,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E106,2026-04-15T15:50:00Z,40.12100,-75.12044,field_sensor,0.84,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E107,2026-04-15T16:00:00Z,40.12108,-75.12048,field_sensor,0.86,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E108,2026-04-15T16:10:00Z,40.12116,-75.12052,field_sensor,0.87,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E109,2026-04-15T16:20:00Z,40.12124,-75.12056,field_sensor,0.88,excavation,backhoe,Cobalt Civil,main repair
+RICH-B-E110,2026-04-15T16:30:00Z,40.12132,-75.12060,field_sensor,0.89,excavation,backhoe,Cobalt Civil,main repair
+RICH-C-E101,2026-04-15T17:00:00Z,40.13000,-75.13000,field_sensor,0.79,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E102,2026-04-15T17:10:00Z,40.13003,-75.13002,field_sensor,0.83,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E103,2026-04-15T17:20:00Z,40.13006,-75.13004,field_sensor,0.86,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E104,2026-04-15T17:30:00Z,40.13009,-75.13006,field_sensor,0.88,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E105,2026-04-15T17:40:00Z,40.13012,-75.13008,field_sensor,0.90,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E106,2026-04-15T17:50:00Z,40.13015,-75.13010,field_sensor,0.91,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E107,2026-04-15T18:00:00Z,40.13018,-75.13012,field_sensor,0.92,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E108,2026-04-15T18:10:00Z,40.13021,-75.13014,field_sensor,0.93,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E109,2026-04-15T18:20:00Z,40.13024,-75.13016,field_sensor,0.94,excavation,hdd rig,DeepPath Boring,hdd crossing
+RICH-C-E110,2026-04-15T18:30:00Z,40.13027,-75.13018,field_sensor,0.95,excavation,hdd rig,DeepPath Boring,hdd crossing

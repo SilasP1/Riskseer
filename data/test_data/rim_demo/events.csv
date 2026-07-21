@@ -1,0 +1,17 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type,contractor,work_type
+RIM-E001,2026-04-14T13:00:00Z,40.00000,-75.00000,field_sensor,0.92,excavation,backhoe,NorthStar Excavation,trench
+RIM-E002,2026-04-14T13:18:00Z,40.00006,-75.00002,field_sensor,0.96,excavation,backhoe,NorthStar Excavation,trench
+RIM-E010,2026-04-14T14:00:00Z,40.01000,-75.01000,field_sensor,0.34,inspection,hand crew,BrightLine Civil,potholing
+RIM-E011,2026-04-14T14:22:00Z,40.01002,-75.01003,field_sensor,0.36,inspection,hand crew,BrightLine Civil,potholing
+RIM-E020,2026-04-14T15:00:00Z,40.02080,-75.02080,field_sensor,0.75,excavation,mini excavator,CanalWorks,service repair
+RIM-E021,2026-04-14T15:16:00Z,40.02086,-75.02084,field_sensor,0.82,excavation,mini excavator,CanalWorks,service repair
+RIM-E030,2026-04-14T16:00:00Z,40.03000,-75.03000,field_sensor,0.88,excavation,directional drill,Vector Boring,hdd
+RIM-E031,2026-04-14T16:12:00Z,40.03005,-75.03004,field_sensor,0.91,excavation,directional drill,Vector Boring,hdd
+RIM-E040,2026-04-14T17:00:00Z,40.04000,-75.04000,field_sensor,0.67,excavation,backhoe,TwinRoad Utilities,main extension
+RIM-E041,2026-04-14T17:20:00Z,40.04004,-75.04003,field_sensor,0.72,excavation,backhoe,TwinRoad Utilities,main extension
+RIM-E050,2026-04-14T18:00:00Z,40.05000,-75.05000,field_sensor,0.58,excavation,vacuum truck,Oak Street Repair,test hole
+RIM-E051,2026-04-14T18:28:00Z,40.05005,-75.05005,field_sensor,0.60,excavation,vacuum truck,Oak Street Repair,test hole
+RIM-E060,2026-04-14T19:00:00Z,40.06000,-75.06000,field_sensor,0.42,inspection,locator,Metro Locate,site walk
+RIM-E061,2026-04-14T19:12:00Z,40.06001,-75.06002,field_sensor,0.44,inspection,locator,Metro Locate,site walk
+RIM-E070,2026-04-14T20:00:00Z,40.07000,-75.07000,field_sensor,0.80,excavation,hdd rig,DeepPath Boring,hdd
+RIM-E071,2026-04-14T20:19:00Z,40.07004,-75.07003,field_sensor,0.91,excavation,hdd rig,DeepPath Boring,hdd

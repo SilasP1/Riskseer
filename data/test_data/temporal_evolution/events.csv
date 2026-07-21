@@ -1,0 +1,22 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E7001,2026-04-01T08:15:00Z,28.71010,-81.30010,field,0.48,inspection,hand crew
+E7002,2026-04-02T09:10:00Z,28.71018,-81.30016,field,0.55,excavation,vac truck
+E7003,2026-04-03T10:40:00Z,28.71024,-81.30020,field,0.58,excavation,vac truck
+E7004,2026-04-05T13:20:00Z,28.71030,-81.30028,field,0.63,excavation,mini excavator
+E7010,2026-04-06T17:30:00Z,28.72012,-81.31008,field,0.57,inspection,hand crew
+E7011,2026-04-07T07:50:00Z,28.72018,-81.31016,field,0.62,excavation,mini excavator
+E7012,2026-04-07T08:35:00Z,28.72024,-81.31020,field,0.66,excavation,mini excavator
+E7020,2026-04-07T14:50:00Z,28.73010,-81.32010,field,0.61,inspection,hand crew
+E7021,2026-04-07T16:05:00Z,28.73018,-81.32018,field,0.74,excavation,backhoe
+E7022,2026-04-07T17:40:00Z,28.73026,-81.32024,field,0.81,excavation,backhoe
+E7030,2026-04-04T11:00:00Z,28.74012,-81.33010,field,0.52,inspection,hand crew
+E7031,2026-04-04T12:40:00Z,28.74018,-81.33018,field,0.59,excavation,boring rig
+E7032,2026-04-07T15:10:00Z,28.74026,-81.33026,field,0.72,excavation,boring rig
+E7040,2026-04-06T05:30:00Z,28.75008,-81.34006,field,0.54,excavation,trencher
+E7050,2026-04-01T09:20:00Z,28.76010,-81.35012,field,0.49,inspection,hand crew
+E7051,2026-04-02T10:10:00Z,28.76018,-81.35018,field,0.56,excavation,directional drill
+E7052,2026-04-04T11:30:00Z,28.76022,-81.35024,field,0.61,excavation,directional drill
+E7053,2026-04-07T17:55:00Z,28.76028,-81.35028,field,0.77,excavation,directional drill
+E7060,2026-04-01T13:10:00Z,28.77010,-81.36010,field,0.46,inspection,hand crew
+E7061,2026-04-03T14:50:00Z,28.77020,-81.36018,field,0.53,excavation,hydrovac
+E7062,2026-04-06T21:00:00Z,28.77028,-81.36024,field,0.58,excavation,hydrovac

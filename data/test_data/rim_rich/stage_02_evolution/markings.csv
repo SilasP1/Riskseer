@@ -1,0 +1,3 @@
+marking_id,observed_at,lat,lon,ticket_id,utility_name,marking_state,locate_status,mark_type,last_marked_at,last_refreshed_at,mark_confidence,refresh_required,partial_marks,clearly_visible
+RICH-A-M101,2026-04-15T12:25:00Z,40.11002,-75.11001,RICH-T-A,WaterCo,visible,complete,paint,2026-04-15T12:15:00Z,2026-04-15T12:15:00Z,0.94,FALSE,FALSE,TRUE
+RICH-B-M101,2026-04-15T14:42:00Z,40.12012,-75.12004,RICH-T-B,GasCo,partial,partial,paint,2026-04-15T14:40:00Z,2026-04-15T14:40:00Z,0.41,TRUE,TRUE,FALSE

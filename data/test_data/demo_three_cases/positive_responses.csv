@@ -1,0 +1,2 @@
+response_id,observed_at,ticket_id,response_status,responder,response_code,clear_to_excavate,complete_response,conflict_flag
+DEMO-A-PR1,2026-04-15T12:12:00Z,DEMO-T-A,complete,WaterCo,CLEAR,TRUE,TRUE,FALSE

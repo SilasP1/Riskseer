@@ -1,0 +1,17 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E2601,2026-04-07T14:05:00Z,29.26010,-81.86010,field,0.34,inspection,hand crew
+E2602,2026-04-08T16:10:00Z,29.26016,-81.86016,field,0.36,inspection,hand crew
+E2701,2026-04-07T14:20:00Z,29.27010,-81.87010,field,0.38,daylighting,hand dig
+E2702,2026-04-08T16:22:00Z,29.27016,-81.87016,field,0.39,daylighting,hand dig
+E2801,2026-04-07T14:35:00Z,29.28010,-81.88010,field,0.41,potholing,vacuum truck
+E2802,2026-04-08T16:34:00Z,29.28016,-81.88016,field,0.43,potholing,vacuum truck
+E2901,2026-04-07T14:50:00Z,29.29010,-81.89010,field,0.35,inspection,locator
+E2902,2026-04-08T16:46:00Z,29.29016,-81.89016,field,0.37,inspection,locator
+E3001,2026-04-07T15:05:00Z,29.30010,-81.90010,field,0.36,inspection,hand crew
+E3002,2026-04-08T16:58:00Z,29.30016,-81.90016,field,0.39,inspection,hand crew
+E3101,2026-04-07T15:20:00Z,29.31010,-81.91010,field,0.40,daylighting,hand dig
+E3102,2026-04-08T17:10:00Z,29.31016,-81.91016,field,0.42,daylighting,hand dig
+E3301,2026-04-07T15:50:00Z,29.33010,-81.93010,field,0.33,inspection,hand crew
+E3302,2026-04-08T17:34:00Z,29.33016,-81.93016,field,0.35,inspection,hand crew
+E4201,2026-04-07T15:15:00Z,29.42010,-82.02010,field,0.48,inspection,hand crew
+E4202,2026-04-08T17:14:00Z,29.42016,-82.02016,field,0.72,excavation,mini excavator

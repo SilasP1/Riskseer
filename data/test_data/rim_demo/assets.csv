@@ -1,0 +1,8 @@
+asset_id,asset_type,lat,lon
+RIM-A001,gas_main,40.00002,-75.00002
+RIM-A010,water_service,40.01002,-75.01001
+RIM-A020,electric_duct,40.02082,-75.02082
+RIM-A030,fiber_conduit,40.03002,-75.03001
+RIM-A040,gas_service,40.04002,-75.04002
+RIM-A060,water_main,40.06002,-75.06001
+RIM-A070,transmission_gas,40.07002,-75.07001

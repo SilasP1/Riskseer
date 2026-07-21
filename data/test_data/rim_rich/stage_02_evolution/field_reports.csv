@@ -1,0 +1,6 @@
+report_id,observed_at,lat,lon,narrative,equipment_type,work_method,reporter,contractor,photos_present,audio_present,video_present
+RICH-A-FR101,2026-04-15T13:12:00Z,40.11001,-75.11000,Refreshed marks visible and crew is using vacuum excavation inside ticket,locator,service renewal,Patrol 7,Atlas Trench,TRUE,FALSE,FALSE
+RICH-A-FR102,2026-04-15T14:05:00Z,40.11004,-75.11003,Work intensity reduced and spotter remains on site,spotter,service renewal,Patrol 7,Atlas Trench,TRUE,FALSE,FALSE
+RICH-B-FR101,2026-04-15T15:18:00Z,40.12075,-75.12032,Backhoe operating beyond submitted ticket radius,backhoe,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+RICH-B-FR102,2026-04-15T16:12:00Z,40.12117,-75.12052,Field activity has moved outside visible marks,backhoe,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+RICH-C-FR101,2026-04-15T17:24:00Z,40.13007,-75.13004,HDD continues after ticket window and marks were not observed,hdd rig,hdd crossing,Patrol 9,DeepPath Boring,TRUE,FALSE,FALSE

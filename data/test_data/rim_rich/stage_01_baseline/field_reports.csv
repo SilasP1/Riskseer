@@ -1,0 +1,6 @@
+report_id,observed_at,lat,lon,narrative,equipment_type,work_method,reporter,contractor,photos_present,audio_present,video_present
+RICH-A-FR1,2026-04-14T13:18:00Z,40.11002,-75.11001,Marks visible and crew working inside ticketed frontage,locator,service renewal,Patrol 7,Atlas Trench,TRUE,FALSE,FALSE
+RICH-A-FR2,2026-04-14T14:12:00Z,40.11004,-75.11003,Vacuum excavation matches stated ticket work,vacuum truck,service renewal,Patrol 7,Atlas Trench,TRUE,FALSE,FALSE
+RICH-B-FR1,2026-04-14T15:36:00Z,40.12030,-75.12010,Crew approaching ticket edge and marks are hard to follow,mini excavator,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+RICH-B-FR2,2026-04-14T16:18:00Z,40.12052,-75.12020,Work appears beyond marked segment and needs supervisor check,backhoe,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+RICH-C-FR1,2026-04-14T17:22:00Z,40.13004,-75.13002,HDD rig set up away from ticket center near transmission corridor,hdd rig,hdd crossing,Patrol 9,DeepPath Boring,TRUE,FALSE,FALSE

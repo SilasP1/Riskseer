@@ -1,0 +1,2 @@
+marking_id,observed_at,lat,lon,ticket_id,utility_name,marking_state,locate_status,mark_type,last_marked_at,last_refreshed_at,mark_confidence,refresh_required,partial_marks,clearly_visible
+DEMO-A-M1,2026-04-15T12:20:00Z,40.21002,-75.21001,DEMO-T-A,WaterCo,visible,complete,paint,2026-04-15T12:10:00Z,2026-04-15T12:10:00Z,0.92,FALSE,FALSE,TRUE

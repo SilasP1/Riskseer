@@ -1,0 +1,31 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type,contractor,work_type
+DEMO-A-E001,2026-04-15T13:00:00Z,40.21000,-75.21000,field_sensor,0.20,inspection,locator,Atlas Utility,service renewal
+DEMO-A-E002,2026-04-15T13:08:00Z,40.21001,-75.21000,field_sensor,0.24,inspection,locator,Atlas Utility,service renewal
+DEMO-A-E003,2026-04-15T13:16:00Z,40.21002,-75.21001,field_sensor,0.28,excavation,hand tools,Atlas Utility,service renewal
+DEMO-A-E004,2026-04-15T13:24:00Z,40.21003,-75.21001,field_sensor,0.31,excavation,vacuum truck,Atlas Utility,service renewal
+DEMO-A-E005,2026-04-15T13:32:00Z,40.21004,-75.21002,field_sensor,0.33,excavation,vacuum truck,Atlas Utility,service renewal
+DEMO-A-E006,2026-04-15T13:40:00Z,40.21004,-75.21003,field_sensor,0.36,excavation,hand tools,Atlas Utility,service renewal
+DEMO-A-E007,2026-04-15T13:48:00Z,40.21005,-75.21003,field_sensor,0.37,excavation,mini excavator,Atlas Utility,service renewal
+DEMO-A-E008,2026-04-15T13:56:00Z,40.21004,-75.21003,field_sensor,0.34,excavation,vacuum truck,Atlas Utility,service renewal
+DEMO-A-E009,2026-04-15T14:04:00Z,40.21003,-75.21002,field_sensor,0.29,inspection,spotter,Atlas Utility,service renewal
+DEMO-A-E010,2026-04-15T14:12:00Z,40.21002,-75.21001,field_sensor,0.24,inspection,spotter,Atlas Utility,service renewal
+DEMO-B-E001,2026-04-15T14:10:00Z,40.22000,-75.22000,field_sensor,0.42,inspection,locator,Cobalt Civil,main repair
+DEMO-B-E002,2026-04-15T14:18:00Z,40.22004,-75.22001,field_sensor,0.48,excavation,vacuum truck,Cobalt Civil,main repair
+DEMO-B-E003,2026-04-15T14:26:00Z,40.22008,-75.22002,field_sensor,0.54,excavation,mini excavator,Cobalt Civil,main repair
+DEMO-B-E004,2026-04-15T14:34:00Z,40.22012,-75.22003,field_sensor,0.58,excavation,mini excavator,Cobalt Civil,main repair
+DEMO-B-E005,2026-04-15T14:42:00Z,40.22016,-75.22005,field_sensor,0.62,excavation,mini excavator,Cobalt Civil,main repair
+DEMO-B-E006,2026-04-15T14:50:00Z,40.22020,-75.22006,field_sensor,0.64,excavation,mini excavator,Cobalt Civil,main repair
+DEMO-B-E007,2026-04-15T14:58:00Z,40.22024,-75.22008,field_sensor,0.66,excavation,backhoe,Cobalt Civil,main repair
+DEMO-B-E008,2026-04-15T15:06:00Z,40.22028,-75.22009,field_sensor,0.68,excavation,backhoe,Cobalt Civil,main repair
+DEMO-B-E009,2026-04-15T15:14:00Z,40.22032,-75.22010,field_sensor,0.69,excavation,backhoe,Cobalt Civil,main repair
+DEMO-B-E010,2026-04-15T15:22:00Z,40.22035,-75.22011,field_sensor,0.70,excavation,backhoe,Cobalt Civil,main repair
+DEMO-C-E001,2026-04-15T15:20:00Z,40.23000,-75.23000,field_sensor,0.51,inspection,locator,DeepPath Boring,hdd crossing
+DEMO-C-E002,2026-04-15T15:28:00Z,40.23001,-75.23000,field_sensor,0.58,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E003,2026-04-15T15:36:00Z,40.23002,-75.23001,field_sensor,0.63,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E004,2026-04-15T15:44:00Z,40.23003,-75.23001,field_sensor,0.68,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E005,2026-04-15T15:52:00Z,40.23004,-75.23002,field_sensor,0.71,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E006,2026-04-15T16:00:00Z,40.23005,-75.23002,field_sensor,0.74,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E007,2026-04-15T16:08:00Z,40.23006,-75.23003,field_sensor,0.77,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E008,2026-04-15T16:16:00Z,40.23007,-75.23003,field_sensor,0.79,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E009,2026-04-15T16:24:00Z,40.23008,-75.23003,field_sensor,0.80,excavation,hdd rig,DeepPath Boring,hdd crossing
+DEMO-C-E010,2026-04-15T16:32:00Z,40.23008,-75.23004,field_sensor,0.78,excavation,hdd rig,DeepPath Boring,hdd crossing

@@ -1,0 +1,2 @@
+Start-Process powershell -ArgumentList "cd C:\Users\WOOKI\Riskseer; python main.py; python -m uvicorn api:app --reload"
+Start-Process powershell -ArgumentList "cd 'C:\Users\WOOKI\Riskseer\Riskseer Frontend'; npm run dev"

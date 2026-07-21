@@ -1,0 +1,6 @@
+report_id,observed_at,lat,lon,narrative,equipment_type,work_method,reporter,contractor,photos_present,audio_present,video_present
+DEMO-A-FR1,2026-04-15T13:18:00Z,40.21002,-75.21001,Marks are visible and crew remains inside the ticketed frontage,locator,service renewal,Patrol 1,Atlas Utility,TRUE,FALSE,FALSE
+DEMO-A-FR2,2026-04-15T13:58:00Z,40.21004,-75.21003,Vacuum excavation matches the ticket and the marked route,mini excavator,service renewal,Patrol 1,Atlas Utility,TRUE,FALSE,FALSE
+DEMO-B-FR1,2026-04-15T14:44:00Z,40.22016,-75.22005,Marks are partial and support gets harder to follow toward the edge of work,mini excavator,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+DEMO-B-FR2,2026-04-15T15:16:00Z,40.22032,-75.22010,Backhoe remains near the edge of the supported segment and needs a closer check,backhoe,main repair,Patrol 3,Cobalt Civil,TRUE,FALSE,FALSE
+DEMO-C-FR1,2026-04-15T15:48:00Z,40.23003,-75.23001,HDD setup appears away from ticket center near transmission corridor,hdd rig,hdd crossing,Patrol 9,DeepPath Boring,TRUE,FALSE,FALSE

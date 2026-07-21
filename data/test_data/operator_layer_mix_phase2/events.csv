@@ -1,0 +1,28 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E5011,2026-04-10T14:05:00Z,29.50110,-81.70110,field,0.34,inspection,hand crew
+E5012,2026-04-10T19:10:00Z,29.50116,-81.70116,field,0.36,inspection,hand crew
+E5021,2026-04-10T13:50:00Z,29.50210,-81.70210,field,0.38,daylighting,hand dig
+E5022,2026-04-10T18:42:00Z,29.50216,-81.70216,field,0.39,daylighting,hand dig
+E5031,2026-04-10T13:35:00Z,29.50310,-81.70310,field,0.40,potholing,vacuum truck
+E5032,2026-04-10T18:55:00Z,29.50316,-81.70316,field,0.42,potholing,vacuum truck
+E5041,2026-04-10T14:25:00Z,29.50410,-81.70410,field,0.35,inspection,locator
+E5042,2026-04-10T20:05:00Z,29.50416,-81.70416,field,0.37,inspection,locator
+E5051,2026-04-10T15:00:00Z,29.50510,-81.70510,field,0.36,inspection,hand crew
+E5052,2026-04-10T20:20:00Z,29.50516,-81.70516,field,0.38,inspection,hand crew
+E5061,2026-04-10T15:20:00Z,29.50610,-81.70610,field,0.41,daylighting,hand dig
+E5062,2026-04-10T21:05:00Z,29.50616,-81.70616,field,0.43,daylighting,hand dig
+E5201,2026-04-10T15:10:00Z,29.52010,-81.72010,field,0.47,inspection,hand crew
+E5202,2026-04-10T19:35:00Z,29.52016,-81.72016,field,0.76,excavation,mini excavator
+E5211,2026-04-10T14:50:00Z,29.52610,-81.72610,field,0.46,inspection,hand crew
+E5212,2026-04-10T20:05:00Z,29.52616,-81.72616,field,0.49,inspection,hand crew
+E5301,2026-04-10T17:10:00Z,29.53010,-81.73010,field,0.74,excavation,mini excavator
+E5302,2026-04-10T20:40:00Z,29.53016,-81.73016,field,0.82,excavation,mini excavator
+E5401,2026-04-10T01:15:00Z,29.54010,-81.74010,field,0.35,inspection,hand crew
+E5402,2026-04-10T03:05:00Z,29.54016,-81.74016,field,0.38,inspection,hand crew
+E5403,2026-04-10T22:15:00Z,29.54020,-81.74020,field,0.58,excavation,hand dig
+E5411,2026-04-10T00:40:00Z,29.54110,-81.74110,field,0.43,potholing,vacuum truck
+E5412,2026-04-10T02:20:00Z,29.54116,-81.74116,field,0.45,potholing,vacuum truck
+E5501,2026-04-05T10:15:00Z,29.55010,-81.75010,field,0.33,inspection,hand crew
+E5502,2026-04-05T15:40:00Z,29.55016,-81.75016,field,0.48,excavation,hand dig
+E5511,2026-04-04T09:00:00Z,29.55110,-81.75110,field,0.42,inspection,hand crew
+E5512,2026-04-04T13:10:00Z,29.55116,-81.75116,field,0.61,boring,hydrovac

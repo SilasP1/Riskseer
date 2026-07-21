@@ -1,0 +1,3 @@
+response_id,observed_at,ticket_id,response_status,responder,response_code,clear_to_excavate,complete_response,conflict_flag
+RICH-A-PR101,2026-04-15T12:05:00Z,RICH-T-A,complete,WaterCo,CLEAR,TRUE,TRUE,FALSE
+RICH-B-PR101,2026-04-15T14:36:00Z,RICH-T-B,incomplete,GasCo,PARTIAL,FALSE,FALSE,TRUE

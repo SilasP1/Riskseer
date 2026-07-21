@@ -1,0 +1,22 @@
+event_id,event_time,lat,lon,source,intensity,event_type,equipment_type
+E1001,2026-04-06T15:10:00Z,28.90010,-81.50010,field,0.42,inspection,hand crew
+E1002,2026-04-07T17:05:00Z,28.90016,-81.50016,field,0.45,inspection,hand crew
+E1011,2026-04-06T14:30:00Z,28.91010,-81.51010,field,0.46,inspection,hand crew
+E1012,2026-04-07T17:00:00Z,28.91018,-81.51018,field,0.50,inspection,hand crew
+E1021,2026-04-06T13:40:00Z,28.92010,-81.52010,field,0.55,inspection,hand crew
+E1022,2026-04-07T16:40:00Z,28.92018,-81.52018,field,0.72,excavation,mini excavator
+E1031,2026-04-07T16:00:00Z,28.93010,-81.53010,field,0.68,excavation,backhoe
+E1032,2026-04-07T17:20:00Z,28.93018,-81.53018,field,0.82,excavation,backhoe
+E1041,2026-04-06T23:50:00Z,28.94010,-81.54010,field,0.50,inspection,hand crew
+E1042,2026-04-07T09:10:00Z,28.94018,-81.54018,field,0.58,excavation,vac truck
+E1051,2026-04-06T20:20:00Z,28.95010,-81.55010,field,0.48,inspection,hand crew
+E1052,2026-04-07T05:40:00Z,28.95018,-81.55018,field,0.57,excavation,hand dig
+E1061,2026-04-06T18:10:00Z,28.96010,-81.56010,field,0.47,inspection,hand crew
+E1062,2026-04-06T22:10:00Z,28.96018,-81.56018,field,0.60,excavation,hydrovac
+E1071,2026-04-04T08:10:00Z,28.97010,-81.57010,field,0.44,inspection,hand crew
+E1072,2026-04-05T09:30:00Z,28.97018,-81.57018,field,0.53,excavation,vac truck
+E1081,2026-04-03T11:10:00Z,28.98010,-81.58010,field,0.45,inspection,hand crew
+E1082,2026-04-04T12:10:00Z,28.98018,-81.58018,field,0.61,excavation,trencher
+E1091,2026-04-01T09:20:00Z,28.99010,-81.59010,field,0.43,inspection,hand crew
+E1092,2026-04-02T10:45:00Z,28.99018,-81.59018,field,0.49,excavation,hand crew
+E1093,2026-04-03T14:15:00Z,28.99024,-81.59024,field,0.52,excavation,hand crew
