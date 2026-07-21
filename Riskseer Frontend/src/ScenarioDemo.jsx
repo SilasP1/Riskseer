@@ -12,6 +12,7 @@ function Icon({ name }) {
     map: <><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2V6Z" /><path d="M9 4v14M15 6v14" /></>,
     camera: <><path d="M4 7h11v10H4zM15 10l5-3v10l-5-3" /><circle cx="9.5" cy="12" r="2.5" /></>,
     check: <path d="m5 12 4 4L19 6" />,
+    code: <><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" /></>,
   };
 
   return (
@@ -378,6 +379,106 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert, confir
   );
 }
 
+function EngineWindow({ scenario, selected, selectedAlert }) {
+  const trace = selected.type === "alert" ? selectedAlert.engineTrace : null;
+
+  return (
+    <section className="demo-engine-window" aria-labelledby="engine-window-title">
+      <div className="demo-engine-window__intro">
+        <div>
+          <span className="demo-kicker">Inside Riskseer</span>
+          <h2 id="engine-window-title">A window into the decision engine.</h2>
+          <p>
+            This exposes the shape of a saved evaluation—not production rules, weights, or thresholds.
+          </p>
+        </div>
+        <StateBadge tone={scenario.mode === "excavation" ? "context" : "low"}>
+          {scenario.mode === "excavation" ? "IMPLEMENTED PATH" : "EXTENSION CONCEPT"}
+        </StateBadge>
+      </div>
+
+      {selected.type === "ticket" ? (
+        <div className="demo-engine-window__empty">
+          <Icon name="sensor" />
+          <div>
+            <strong>Select a Thistle alert to inspect its trace.</strong>
+            <span>The context record alone does not produce an operational decision.</span>
+          </div>
+        </div>
+      ) : trace ? (
+        <details className="demo-engine-trace">
+          <summary>
+            <span className="demo-engine-trace__icon"><Icon name="code" /></span>
+            <span>
+              <strong>View engine trace · {selectedAlert.id}</strong>
+              <small>Example projection from the selected fictional fixture</small>
+            </span>
+            <span className="demo-engine-trace__toggle" aria-hidden="true">+</span>
+          </summary>
+
+          <div className="demo-engine-trace__body">
+            <div className="demo-engine-trace__owner">
+              <div>
+                <span className="demo-kicker">Deterministic engine</span>
+                <strong>Owns case identity and decision truth</strong>
+              </div>
+              <small>Saved output contract</small>
+            </div>
+
+            <div className="demo-engine-stages" aria-label="Example engine stages">
+              <div><span>Case identity</span><strong>{trace.caseId}</strong><small>{trace.continuity}</small></div>
+              <div><span>Alignment</span><strong>{trace.alignment}</strong><small>Ticket + spatial + temporal context</small></div>
+              <div><span>Decision state</span><strong>{trace.decisionState}</strong><small>Urgency · {trace.urgency}</small></div>
+              <div><span>Response posture</span><strong>{trace.responsePosture}</strong><small>Backend-owned result</small></div>
+            </div>
+
+            <div className="demo-engine-evidence">
+              <div className="demo-engine-evidence__heading">
+                <span className="demo-kicker">Evidence layers remain separate</span>
+                <small>No blended confidence score is shown</small>
+              </div>
+              <div className="demo-engine-evidence__grid">
+                {trace.evidence.map((item) => (
+                  <div className={`demo-engine-evidence__item demo-engine-evidence__item--${item.layer.toLowerCase()}`} key={item.id}>
+                    <span>{item.layer}</span>
+                    <code>{item.id}</code>
+                    <p>{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="demo-engine-investigator">
+              <RiskseerMark className="demo-engine-investigator__mark" />
+              <div>
+                <span className="demo-kicker">GPT-5.6 Investigator · read only</span>
+                <strong>Explains the saved result with allowed citations.</strong>
+                <p>{trace.investigatorBrief}</p>
+                <div className="demo-engine-investigator__citations">
+                  {trace.citations.map((citation) => <code key={citation}>{citation}</code>)}
+                </div>
+              </div>
+              <p className="demo-engine-investigator__boundary">
+                Cannot change case identity, urgency, decision state, or response posture.
+              </p>
+            </div>
+          </div>
+        </details>
+      ) : (
+        <div className="demo-engine-window__boundary">
+          <Icon name="code" />
+          <div>
+            <strong>Concept workflow, not a claimed engine trace.</strong>
+            <p>
+              The current deterministic engine is excavation-focused. This temporary-security scenario shows how the same product contract could extend to a camera-verification workflow.
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function ScenarioDemo() {
   const [scenarioId, setScenarioId] = useState(DEMO_SCENARIOS[0].id);
   const scenario = useMemo(
@@ -607,6 +708,8 @@ export default function ScenarioDemo() {
             onConfirm={setConfirmation}
           />
         </section>
+
+        <EngineWindow scenario={scenario} selected={selected} selectedAlert={selectedAlert} />
       </main>
 
       <footer className="demo-footer">
