@@ -24,6 +24,68 @@ engine, Python API, tests, and optional OpenAI Investigator. The Investigator is
 not enabled on the public static site because GitHub Pages cannot securely run
 the Python API or hold an API key.
 
+## OpenAI Build Week extension
+
+Riskseer started before Build Week as an early, excavation-focused
+decision-integrity engine. The case-first architecture and the underlying idea
+of testing whether a field decision is still supported were already in place.
+The work submitted for Build Week is the meaningful extension completed from
+July 13–21, 2026, and that is the work I expect to be judged.
+
+During Build Week I used Codex and GPT-5.6 to turn that foundation into a
+runnable, testable product demonstration:
+
+- I added a bounded OpenAI Investigator that reads saved engine truth through
+  three read-only tools and returns a structured, evidence-cited brief.
+- I added the Investigator API path, dependency manifests, setup instructions,
+  and regression tests needed to run and inspect the system consistently.
+- I rebuilt the public experience around two guided operator scenarios, an
+  interactive corridor map, explicit human confirmation, and a compact window
+  into the engine contract.
+- I deployed a repeatable static walkthrough to GitHub Pages while keeping API
+  keys, production data, internal thresholds, and production prioritization
+  logic out of the browser.
+
+The dated commit and pull-request history in this repository documents that
+Build Week work separately from the initial import.
+
+### How I collaborated with Codex
+
+I used Codex as an engineering partner across the repository rather than as a
+one-shot code generator. Codex helped audit the existing code paths, turn
+product decisions into scoped changes, implement the Investigator and API
+boundary, write regression tests, rebuild the demo interface, and configure the
+GitHub Pages deployment. That compressed the distance between an internal
+engine and something another person can actually run and understand.
+
+I kept the consequential product and engineering decisions human-owned. In
+particular, I chose that the deterministic engine—not the model—must own case
+identity, evidence state, urgency, and response posture; GPT-5.6 may only explain
+saved results through allowlisted citations; and an operator must retain the
+final field or security classification. I also chose to make the public demo
+fictional and precomputed instead of exposing a key or implying live field
+analysis.
+
+GPT-5.6 contributes at runtime through the optional Investigator. It turns an
+already-evaluated case into a concise brief while the server validates its
+citations and copies the official decision fields from backend truth. Codex
+contributed throughout development, testing, design iteration, documentation,
+and deployment.
+
+### What I learned and what was difficult
+
+The biggest lesson was that the model becomes more useful when its authority is
+narrower. Separating deterministic decisions from generative explanation made
+the system easier to test, easier to trust, and easier to demonstrate.
+
+The hardest parts were preserving continuity in a pre-existing case-based
+system, making the explanation layer useful without letting it become a second
+decision engine, and presenting a complicated operational workflow in under
+three minutes. GitHub Pages added another constraint: the public site had to be
+credible and interactive without a Python server or exposed API credentials.
+The resulting demo shows the product contract while the repository retains the
+working local engine and Investigator path.
+
 ## Quick start
 
 Python 3.10+ and Node.js 20+ are recommended.
@@ -107,3 +169,10 @@ explanation of backend evidence—not authorization to proceed. The public
 walkthrough includes a clearly labeled, fictional temporary-security scenario
 to demonstrate a possible product extension. Temporary-security ontology is not
 implemented by the current deterministic excavation engine.
+
+## License
+
+Riskseer is temporarily public for OpenAI Build Week evaluation. Original
+Riskseer code and demo content remain proprietary and are provided under the
+terms in [LICENSE](LICENSE). Third-party components remain subject to their own
+licenses.

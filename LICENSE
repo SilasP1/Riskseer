@@ -1,0 +1,46 @@
+Riskseer Build Week Evaluation License
+
+Copyright (c) 2026 SilasP1. All rights reserved.
+
+1. Ownership
+
+Riskseer source code, documentation, original demo content, and related
+materials (the "Software") are proprietary and remain the exclusive property
+of the copyright holder. Public availability of this repository does not place
+the Software in the public domain or grant an open-source license.
+
+2. Competition evaluation permission
+
+OpenAI, Devpost, the OpenAI Build Week sponsor and administrator, and the
+competition judges may access, reproduce as reasonably necessary in an
+evaluation environment, run, test, and evaluate the Software for purposes of
+administering and judging OpenAI Build Week. This permission is non-exclusive,
+non-transferable, and limited to those competition purposes. It supplements
+and does not restrict any rights granted under the OpenAI Build Week Official
+Rules.
+
+3. Public viewing
+
+Subject to GitHub's applicable terms, members of the public may view the source
+made available in this repository and access the public demonstration. No
+permission is granted to copy, modify, distribute, sublicense, sell,
+commercialize, or create derivative works from the Software.
+
+4. Third-party software
+
+Third-party libraries, frameworks, APIs, and other dependencies are not
+relicensed by this notice. They remain subject to their respective licenses and
+terms. Dependency manifests in this repository identify the primary software
+dependencies used by Riskseer.
+
+5. No warranty
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED
+BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY ARISING FROM OR RELATED TO THE SOFTWARE OR ITS USE.
+
+6. Other rights
+
+All rights not expressly granted in this license are reserved.
