@@ -12,6 +12,7 @@ data/archive/
 Riskseer Frontend/node_modules/
 Riskseer Frontend/dist/
 Riskseer Frontend/.vite/
+Riskseer Frontend/public/demo_cases.json
 
 .DS_Store
 Thumbs.db

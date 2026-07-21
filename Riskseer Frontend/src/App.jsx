@@ -5,6 +5,7 @@ const API_BASE =
   import.meta.env.VITE_API_BASE_URL ??
   import.meta.env.VITE_API_BASE ??
   "http://127.0.0.1:8000";
+const STATIC_DEMO = import.meta.env.VITE_STATIC_DEMO === "true";
 
 function titleCaseFromEnum(value) {
   if (!value) return "Unknown";
@@ -3061,7 +3062,10 @@ export default function App() {
     async function fetchCases() {
       try {
         setError("");
-        const response = await fetch(`${API_BASE}/api/cases`);
+        const casesUrl = STATIC_DEMO
+          ? `${import.meta.env.BASE_URL}demo_cases.json`
+          : `${API_BASE}/api/cases`;
+        const response = await fetch(casesUrl);
 
         if (!response.ok) {
           throw new Error(`Backend returned ${response.status}`);
@@ -3389,6 +3393,12 @@ export default function App() {
 
   const runInvestigation = async () => {
     if (!selected?.case_id || investigationLoading) return;
+    if (STATIC_DEMO) {
+      setInvestigationError(
+        "The public demo uses deterministic fixture data. Run the API locally to use the OpenAI Investigator."
+      );
+      return;
+    }
     setInvestigationLoading(true);
     setInvestigationError("");
     try {
@@ -4041,9 +4051,13 @@ export default function App() {
                       type="button"
                       className="stable-summary__button"
                       onClick={runInvestigation}
-                      disabled={investigationLoading}
+                      disabled={investigationLoading || STATIC_DEMO}
                     >
-                      {investigationLoading ? "Investigating..." : "Run investigator"}
+                      {STATIC_DEMO
+                        ? "Investigator requires live API"
+                        : investigationLoading
+                        ? "Investigating..."
+                        : "Run investigator"}
                     </button>
                     {investigationError ? (
                       <p className="list-block__empty">{investigationError}</p>

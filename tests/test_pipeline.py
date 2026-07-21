@@ -74,3 +74,17 @@ def test_source_adaptor_contract_imports_and_preserves_unknowns():
     assert isinstance(result.quality, SourceQuality)
     assert result.records[0]["clear_to_excavate"] is None
     assert "observed_at" in result.quality.missing_fields
+
+
+def test_static_pages_payload_uses_normalized_demo_cases():
+    from scripts.build_static_demo import build_payload
+
+    payload = build_payload()
+    assert payload["case_count"] == 3
+    by_decision = {case["decision_state"]: case for case in payload["cases"]}
+    assert by_decision["SAFE_TO_PROCEED"]["response_posture"] == "MONITOR"
+    assert (
+        by_decision["PROCEED_WITH_VERIFICATION"]["response_posture"]
+        == "VERIFY_BEFORE_PROCEEDING"
+    )
+    assert by_decision["STOP_WORK"]["response_posture"] == "HOLD_WORK"
