@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import ScenarioDemo from "./ScenarioDemo";
 
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ??
@@ -3053,7 +3054,7 @@ function TimelineItem({ item, index }) {
   );
 }
 
-export default function App() {
+function RiskseerWorkspace() {
   const [cases, setCases] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [activeTab, setActiveTab] = useState("decision");
@@ -4152,4 +4153,8 @@ export default function App() {
       </footer>
     </div>
   );
+}
+
+export default function App() {
+  return STATIC_DEMO ? <ScenarioDemo /> : <RiskseerWorkspace />;
 }
