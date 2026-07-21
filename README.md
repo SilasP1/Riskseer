@@ -14,11 +14,15 @@ change or soften the backend decision.
 
 [Open Riskseer](https://silasp1.github.io/Riskseer/)
 
-GitHub Pages builds a browser-ready version of the three-case competition demo
-whenever the demo branch changes. It uses the same deterministic Python engine
-to generate the case payload during deployment. The OpenAI Investigator is not
-enabled on the public static site because GitHub Pages cannot securely run the
-Python API or hold an API key.
+GitHub Pages hosts a guided, fictional scenario demo showing how Thistle
+detections can be interpreted against 811 and temporary-site context. The
+public walkthrough uses precomputed fixture interpretations so it is safe,
+repeatable, and does not imply live field analysis.
+
+The repository and local workspace retain the working deterministic Riskseer
+engine, Python API, tests, and optional OpenAI Investigator. The Investigator is
+not enabled on the public static site because GitHub Pages cannot securely run
+the Python API or hold an API key.
 
 ## Quick start
 
@@ -99,6 +103,7 @@ prior snapshots.
 
 Riskseer is decision support, not a replacement for required locating,
 verification, supervision, or emergency procedures. Model output is an
-explanation of backend evidence—not authorization to proceed. The architecture
-can later support adjacent temporary-security workflows, but that ontology is
-outside this excavation demo.
+explanation of backend evidence—not authorization to proceed. The public
+walkthrough includes a clearly labeled, fictional temporary-security scenario
+to demonstrate a possible product extension. Temporary-security ontology is not
+implemented by the current deterministic excavation engine.
