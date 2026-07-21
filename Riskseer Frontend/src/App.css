@@ -100,15 +100,10 @@ button:disabled {
 }
 
 .site-brand__mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: var(--ink);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 900;
+  width: 42px;
+  height: 28px;
+  color: var(--ink);
+  flex: 0 0 auto;
 }
 
 .site-brand__copy {

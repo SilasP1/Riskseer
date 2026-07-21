@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import RiskseerMark from "./RiskseerMark";
 import ScenarioDemo from "./ScenarioDemo";
 
 const API_BASE =
@@ -3495,7 +3496,7 @@ function RiskseerWorkspace() {
           onClick={() => navigateToPage("landing")}
           aria-label="Riskseer overview"
         >
-          <span className="site-brand__mark" aria-hidden="true">R</span>
+          <RiskseerMark className="site-brand__mark" />
           <span className="site-brand__copy">
             <strong>Riskseer</strong>
             <span>by Underseer</span>
