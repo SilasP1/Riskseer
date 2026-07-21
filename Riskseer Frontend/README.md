@@ -13,3 +13,7 @@ The app expects the API at `http://127.0.0.1:8000` by default. Override it with
 which presents the guided Thistle + Riskseer scenario walkthrough. Local/API
 mode retains the full case queue and investigator interface. Run `npm run lint`
 and `npm run build` before publishing changes.
+
+The repository root also mirrors the compiled static entry point and hashed
+assets. This keeps the current branch-based Pages fallback consistent with the
+Actions deployment; refresh that mirror after changing the public demo bundle.
