@@ -493,7 +493,9 @@ def get_latest_case_event_time(case: CaseRecord, event_index: Dict[str, EventRec
             continue
         if latest is None or dt > latest:
             latest = dt
-    return latest
+    if latest is not None:
+        return latest
+    return parse_datetime((case.metadata or {}).get("latest_event_time"))
 
 
 def get_earliest_case_event_time(case: CaseRecord, event_index: Dict[str, EventRecord]) -> Optional[datetime]:
@@ -504,7 +506,9 @@ def get_earliest_case_event_time(case: CaseRecord, event_index: Dict[str, EventR
             continue
         if earliest is None or dt < earliest:
             earliest = dt
-    return earliest
+    if earliest is not None:
+        return earliest
+    return parse_datetime((case.metadata or {}).get("earliest_event_time"))
 
 
 def get_case_centroid(case: CaseRecord, event_index: Dict[str, EventRecord]) -> Optional[Tuple[float, float]]:
@@ -1962,6 +1966,25 @@ def update_case_ambiguity_flags(case: CaseRecord) -> None:
 
 def update_case_continuity_stats(case: CaseRecord, event_index: Dict[str, EventRecord]) -> None:
     ensure_case_metadata_defaults(case)
+
+    indexed_events = get_case_events(case, event_index)
+    indexed_times = [parse_datetime(event.event_time) for event in indexed_events]
+    indexed_times = [value for value in indexed_times if value is not None]
+    if indexed_times:
+        earliest = min(indexed_times).isoformat().replace("+00:00", "Z")
+        latest = max(indexed_times).isoformat().replace("+00:00", "Z")
+        prior_earliest = parse_datetime(case.metadata.get("earliest_event_time"))
+        prior_latest = parse_datetime(case.metadata.get("latest_event_time"))
+        case.metadata["earliest_event_time"] = (
+            min(min(indexed_times), prior_earliest).isoformat().replace("+00:00", "Z")
+            if prior_earliest is not None
+            else earliest
+        )
+        case.metadata["latest_event_time"] = (
+            max(max(indexed_times), prior_latest).isoformat().replace("+00:00", "Z")
+            if prior_latest is not None
+            else latest
+        )
 
     centroid = get_case_centroid(case, event_index)
     if centroid is not None:

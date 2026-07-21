@@ -4,20 +4,31 @@ from pathlib import Path
 from typing import Any
 import csv
 import json
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+from investigator import (
+    InvalidInvestigation,
+    InvestigatorUnavailable,
+    investigate_case,
+    investigator_status,
+)
 
-app = FastAPI(title="Riskseer API", version="1.0.0")
 
-# Allow the local frontend dev server to call this API.
+app = FastAPI(title="Riskseer API", version="1.1.0")
+
+DEFAULT_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173"
+allowed_origins = [
+    value.strip()
+    for value in os.getenv("RISKSEER_CORS_ORIGINS", DEFAULT_ORIGINS).split(",")
+    if value.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -288,7 +299,7 @@ def normalize_case(case: dict[str, Any], report_row: dict[str, Any] | None = Non
     elif "CHANGING_SITE_CONDITIONS" in failure_layers:
         primary_failure_layer = "CHANGING_SITE_CONDITIONS"
 
-    return {
+    payload = {
         "case_id": str(case.get("case_id", "")).strip(),
         "created_at": case.get("created_at"),
         "updated_at": case.get("updated_at"),
@@ -342,9 +353,10 @@ def normalize_case(case: dict[str, Any], report_row: dict[str, Any] | None = Non
         "hidden_risk": metadata.get("hidden_risk"),
         "ui_summary": metadata.get("ui_summary"),
         "metadata": metadata,
-        # Keep raw report context for debugging if needed by the UI later.
-        "report_row": report_row,
     }
+    if os.getenv("RISKSEER_API_DEBUG", "").lower() in {"1", "true", "yes"}:
+        payload["report_row"] = report_row
+    return payload
 
 
 def load_cases() -> list[dict[str, Any]]:
@@ -388,13 +400,14 @@ def root() -> dict[str, str]:
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {
+    payload = {
         "ok": True,
         "registry_exists": REGISTRY_PATH.exists(),
         "report_exists": REPORT_PATH.exists(),
-        "registry_path": str(REGISTRY_PATH),
-        "report_path": str(REPORT_PATH),
     }
+    if os.getenv("RISKSEER_API_DEBUG", "").lower() in {"1", "true", "yes"}:
+        payload.update(registry_path=str(REGISTRY_PATH), report_path=str(REPORT_PATH))
+    return payload
 
 
 @app.get("/api/cases")
@@ -413,3 +426,22 @@ def get_case(case_id: str) -> dict[str, Any]:
         if case.get("case_id") == case_id:
             return case
     raise HTTPException(status_code=404, detail=f"Case {case_id} not found")
+
+
+@app.get("/api/ai/status")
+def ai_status() -> dict[str, Any]:
+    return investigator_status()
+
+
+@app.post("/api/cases/{case_id}/investigate")
+async def investigate(case_id: str) -> dict[str, Any]:
+    case = next((item for item in load_cases() if item.get("case_id") == case_id), None)
+    if case is None:
+        raise HTTPException(status_code=404, detail=f"Case {case_id} not found")
+    try:
+        brief = await investigate_case(case)
+    except InvestigatorUnavailable as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except InvalidInvestigation as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    return brief.model_dump() if hasattr(brief, "model_dump") else brief.dict()

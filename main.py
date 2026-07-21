@@ -235,7 +235,7 @@ def archive_processed_csv(path: Path, batch_stamp: str) -> Optional[Path]:
 
 
 def archive_processed_input_data() -> List[Path]:
-    batch_stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    batch_stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
     archived_paths: List[Path] = []
 
     for path in (
@@ -318,6 +318,14 @@ def compute_case_trend_keys_from_plain(case_data: Dict[str, Any]) -> List[str]:
             f"contractor:{dominant_contractor or 'unknown'}",
         ]
     )
+    identity_key = "|".join(
+        [
+            f"assets:{','.join(asset_ids[:2]) or 'none'}",
+            f"tickets:{','.join(ticket_ids[:2]) or 'none'}",
+            f"work:{dominant_work_type or 'unknown'}",
+            f"contractor:{dominant_contractor or 'unknown'}",
+        ]
+    )
     loose_key = "|".join(
         [
             f"lat:{normalize_coord(lat)}",
@@ -325,7 +333,11 @@ def compute_case_trend_keys_from_plain(case_data: Dict[str, Any]) -> List[str]:
             f"assets:{','.join(asset_ids[:1]) or 'none'}",
         ]
     )
-    return [exact_key, loose_key]
+    keys = [exact_key]
+    if asset_ids or ticket_ids:
+        keys.append(identity_key)
+    keys.append(loose_key)
+    return keys
 
 
 def compute_case_trend_key(case: CaseRecord) -> str:

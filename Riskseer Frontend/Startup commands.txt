@@ -1,2 +1,6 @@
-Start-Process powershell -ArgumentList "cd C:\Users\WOOKI\Riskseer; python main.py; python -m uvicorn api:app --reload"
-Start-Process powershell -ArgumentList "cd 'C:\Users\WOOKI\Riskseer\Riskseer Frontend'; npm run dev"
+From this folder, run: .\start.ps1
+
+Or start each process manually from the repository root:
+python -m uvicorn api:app --reload
+cd 'Riskseer Frontend'
+npm run dev

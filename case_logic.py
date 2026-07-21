@@ -50,6 +50,7 @@ from case_evaluation import (
     determine_response_posture,
     determine_urgency,
     has_obs,
+    reconcile_decision_with_support,
 )
 from case_temporal import (
     build_hidden_risk_assessment,
@@ -540,16 +541,30 @@ def evaluate_case(case: CaseRecord, prior_case_data: Optional[Dict[str, Any]] = 
         decision_state=decision_state,
         urgency=urgency,
     )
-    urgency, response_posture = apply_lifecycle_actionability(
+
+    responsibility_integrity = evaluate_responsibility_integrity(
         case=case,
+        response_posture=response_posture,
+        uncertainty_burden=uncertainty_burden,
+    )
+    preliminary_defensibility = evaluate_decision_defensibility(
+        case=case,
+        evidence_layers=evidence_layers,
+        responsibility_integrity=responsibility_integrity,
+        alignment=alignment,
+        information=information,
+        behavior=behavior,
+        response_posture=response_posture,
+    )
+    decision_state, urgency, response_posture = reconcile_decision_with_support(
+        decision_state=decision_state,
         urgency=urgency,
         response_posture=response_posture,
+        decision_support=responsibility_integrity.decision_support_integrity,
+        defensibility=preliminary_defensibility,
     )
-    decision_state = apply_lifecycle_decision_state(
-        case=case,
-        decision_state=decision_state,
-        response_posture=response_posture,
-    )
+    urgency, response_posture = apply_lifecycle_actionability(case, urgency, response_posture)
+    decision_state = apply_lifecycle_decision_state(case, decision_state, response_posture)
 
     failure_layers = determine_failure_layers(
         case=case,
@@ -617,11 +632,6 @@ def evaluate_case(case: CaseRecord, prior_case_data: Optional[Dict[str, Any]] = 
         temporal_change=temporal_change,
     )
 
-    responsibility_integrity = evaluate_responsibility_integrity(
-        case=case,
-        response_posture=response_posture,
-        uncertainty_burden=uncertainty_burden,
-    )
     dsi = responsibility_integrity.decision_support_integrity
     if getattr(dsi.state, "value", dsi.state) in {"DEGRADED", "CONFLICTED"}:
         add_unique_text(why_now, [dsi.reason])
@@ -639,6 +649,64 @@ def evaluate_case(case: CaseRecord, prior_case_data: Optional[Dict[str, Any]] = 
         temporal_change=temporal_change,
         response_posture=response_posture,
     )
+
+    reconciled = reconcile_decision_with_support(
+        decision_state=decision_state,
+        urgency=urgency,
+        response_posture=response_posture,
+        decision_support=dsi,
+        defensibility=decision_defensibility,
+    )
+    reconciled_urgency, reconciled_posture = apply_lifecycle_actionability(
+        case,
+        reconciled[1],
+        reconciled[2],
+    )
+    reconciled_state = apply_lifecycle_decision_state(case, reconciled[0], reconciled_posture)
+    if (reconciled_state, reconciled_urgency, reconciled_posture) != (
+        decision_state,
+        urgency,
+        response_posture,
+    ):
+        decision_state, urgency, response_posture = (
+            reconciled_state,
+            reconciled_urgency,
+            reconciled_posture,
+        )
+        hidden_risk = build_hidden_risk_assessment(
+            case=case,
+            alignment=alignment,
+            information=information,
+            behavior=behavior,
+            response_posture=response_posture,
+        )
+        current_snapshot = build_case_state_snapshot(
+            case=case,
+            alignment=alignment,
+            information=information,
+            behavior=behavior,
+            decision_state=decision_state,
+            urgency=urgency,
+            response_posture=response_posture,
+            uncertainty_burden=uncertainty_burden,
+            confidence=confidence,
+            hidden_risk=hidden_risk,
+        )
+        temporal_change = build_temporal_change_summary(
+            current_snapshot=current_snapshot,
+            prior_snapshot=prior_snapshot,
+            case=case,
+        )
+        decision_defensibility = evaluate_decision_defensibility(
+            case=case,
+            evidence_layers=evidence_layers,
+            responsibility_integrity=responsibility_integrity,
+            alignment=alignment,
+            information=information,
+            behavior=behavior,
+            temporal_change=temporal_change,
+            response_posture=response_posture,
+        )
     if getattr(decision_defensibility.state, "value", decision_defensibility.state) == "LOW":
         add_unique_text(why_now, [decision_defensibility.reason])
         add_unique_text(recommended_actions, [
