@@ -2760,16 +2760,30 @@ function LandingPage({
   return (
     <section className="landing-page">
       <div className="landing-page__intro">
-        <span className="hero__kicker">Riskseer</span>
-        <h1>Start with the call that can't wait.</h1>
+        <span className="hero__kicker">Decision integrity for field operations</span>
+        <h1>See risk before it becomes damage.</h1>
         <p>
-          One immediate case, then the queue. Trend changes are shown for context only.
+          Riskseer finds the cases that still look normal while the support for continuing
+          has weakened. Start with the decision that needs attention now.
         </p>
+        <ol className="landing-process" aria-label="How Riskseer works">
+          {[
+            ["01", "Receive"],
+            ["02", "Contextualize"],
+            ["03", "Prioritize"],
+            ["04", "Review"],
+          ].map(([number, label]) => (
+            <li key={label}>
+              <span>{number}</span>
+              <strong>{label}</strong>
+            </li>
+          ))}
+        </ol>
       </div>
 
       <section className="landing-attention">
         <div className="landing-attention__copy">
-          <span className="queue__eyebrow">Most Immediate Attention</span>
+          <span className="queue__eyebrow">Immediate attention</span>
           {spotlightCase ? (
             <>
               <div className="landing-spotlight__topline">
@@ -2806,15 +2820,16 @@ function LandingPage({
             <StatCard label="Monitor" value={monitorActiveCount} detail="Keep visible" />
           </div>
           <button type="button" className="landing-primary-action" onClick={onOpenQueue}>
-            Open queue
+            Review priority queue <span aria-hidden="true">→</span>
           </button>
         </div>
       </section>
 
       <section className="landing-changes" aria-label="What changed">
         <div className="landing-changes__header">
-          <span className="queue__eyebrow">What Changed</span>
-          <p>Display only. Open the queue to select and drill into cases.</p>
+          <span className="queue__eyebrow">Decision movement</span>
+          <h2>What changed since the last review</h2>
+          <p>Trend is context. The current recommended action remains the primary signal.</p>
         </div>
         <div className="landing-changes__grid">
           <div className="landing-change-column">
@@ -3472,13 +3487,52 @@ export default function App() {
 
   return (
     <div className={`app-shell ${activePage === "landing" ? "app-shell--landing" : ""}`}>
+      <header className="site-header">
+        <button
+          type="button"
+          className="site-brand"
+          onClick={() => navigateToPage("landing")}
+          aria-label="Riskseer overview"
+        >
+          <span className="site-brand__mark" aria-hidden="true">R</span>
+          <span className="site-brand__copy">
+            <strong>Riskseer</strong>
+            <span>by Underseer</span>
+          </span>
+        </button>
+
+        <nav className="workspace-nav" aria-label="Primary navigation">
+          <WorkspacePageButton
+            active={activePage === "landing"}
+            label="Overview"
+            detail="Immediate attention"
+            onClick={() => navigateToPage("landing")}
+          />
+          <WorkspacePageButton
+            active={activePage === "queue" || activePage === "case"}
+            label="Priority queue"
+            detail="Review cases"
+            onClick={() => navigateToPage("queue")}
+          />
+        </nav>
+
+        <div className="site-header__status">
+          <span className="site-header__status-dot" aria-hidden="true" />
+          {STATIC_DEMO ? "Competition demo" : "Live workspace"}
+        </div>
+      </header>
+
       {activePage !== "landing" ? (
         <header className="app-masthead">
           <div className="app-masthead__copy">
-            <span className="hero__kicker">Riskseer Command Surface</span>
-            <h1>Make the risky call easier to see.</h1>
+            <span className="hero__kicker">
+              {activePage === "case" ? "Decision review" : "Operator workspace"}
+            </span>
+            <h1>{activePage === "case" ? "Case review" : "Priority queue"}</h1>
             <p>
-              Select a case from the queue, then dive into the action, chain, and evidence.
+              {activePage === "case"
+                ? "Review the recommended action first, then inspect the chain and supporting evidence."
+                : "Cases are ordered by the decision that should change first."}
             </p>
           </div>
           <div className="app-masthead__stats">
@@ -3504,21 +3558,6 @@ export default function App() {
           </div>
         </header>
       ) : null}
-
-      <section className="workspace-nav">
-        <WorkspacePageButton
-          active={activePage === "landing"}
-          label="Landing"
-          detail="Immediate attention"
-          onClick={() => navigateToPage("landing")}
-        />
-        <WorkspacePageButton
-          active={activePage === "queue"}
-          label="Queue"
-          detail="Click a case to review it"
-          onClick={() => navigateToPage("queue")}
-        />
-      </section>
       {activePage === "landing" ? (
         <LandingPage
           spotlightCase={spotlightCase}
@@ -3536,8 +3575,8 @@ export default function App() {
         <>
           <section className="filter-shell">
             <div className="filter-shell__header">
-              <span className="queue__eyebrow">Filters</span>
-              <p>Use the main filters first. Open advanced filters only if you need to narrow further.</p>
+              <span className="queue__eyebrow">Find a case</span>
+              <p>Search or narrow the queue. Advanced filters stay out of the way until needed.</p>
             </div>
             <div className="queue-toolbar">
               <div className="queue-toolbar__summary">
@@ -4107,6 +4146,10 @@ export default function App() {
         </main>
       </section>
       ) : null}
+      <footer className="site-footer">
+        <span>Riskseer</span>
+        <p>Decision support for human operators. No autonomous field decisions.</p>
+      </footer>
     </div>
   );
 }
