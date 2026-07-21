@@ -10,6 +10,7 @@ function Icon({ name }) {
     layers: <><path d="m4 8 8-4 8 4-8 4-8-4Z" /><path d="m4 12 8 4 8-4M4 16l8 4 8-4" /></>,
     arrow: <path d="M5 12h13M14 7l5 5-5 5" />,
     map: <><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2V6Z" /><path d="M9 4v14M15 6v14" /></>,
+    camera: <><path d="M4 7h11v10H4zM15 10l5-3v10l-5-3" /><circle cx="9.5" cy="12" r="2.5" /></>,
     check: <path d="m5 12 4 4L19 6" />,
   };
 
@@ -29,27 +30,30 @@ function MapBase({ mode }) {
     return (
       <>
         <rect className="map-ground" x="22" y="24" width="776" height="432" rx="18" />
-        <path className="map-road" d="M0 402H820" />
-        <path className="map-road-edge" d="M0 360H820" />
-        <rect className="map-building" x="266" y="158" width="108" height="80" rx="4" />
-        <rect className="map-container" x="504" y="146" width="74" height="30" rx="3" />
-        <rect className="map-container" x="504" y="188" width="74" height="30" rx="3" />
-        <rect className="map-container" x="504" y="230" width="74" height="30" rx="3" />
-        <path className="map-fence" d="M182 348 210 104h444l36 244H182Z" />
-        <path className="map-gate" d="M182 286h45" />
-        <g className="map-security-trailer" transform="translate(388 184)">
-          <rect x="0" y="0" width="98" height="52" rx="5" />
-          <rect className="map-security-trailer__door" x="70" y="12" width="18" height="40" rx="2" />
-          <circle cx="20" cy="56" r="6" />
-          <circle cx="78" cy="56" r="6" />
-          <path d="M49 0V-32M38-23h22M38-23l-8-8M60-23l8-8" />
-          <circle className="map-security-trailer__camera" cx="30" cy="-31" r="5" />
-          <circle className="map-security-trailer__camera" cx="68" cy="-31" r="5" />
+        <rect className="map-security-site" x="110" y="56" width="594" height="330" rx="8" />
+        <path className="map-road" d="M0 422H820" />
+        <path className="map-road-edge" d="M0 382H820" />
+        <path className="map-fence" d="M110 386V56h594v330H110Z" />
+        <path className="map-gate" d="M168 386h74" />
+        <path className="map-access-lane" d="M205 386C214 338 262 310 318 302" />
+        <g className="map-equipment-row">
+          <rect x="518" y="112" width="118" height="38" rx="4" />
+          <rect x="518" y="164" width="118" height="38" rx="4" />
+          <rect x="518" y="216" width="118" height="38" rx="4" />
         </g>
-        <text className="map-label" x="437" y="260">THISTLE SECURITY TRAILER</text>
-        <text className="map-minor-label" x="302" y="202">EQUIPMENT STORAGE</text>
-        <text className="map-minor-label" x="42" y="394">CEDAR ACCESS ROAD</text>
-        <text className="map-minor-label" x="500" y="128">MATERIAL ROW</text>
+        <g className="map-security-trailer" transform="translate(286 278)">
+          <path className="map-security-trailer__hitch" d="M0 21h-18l-12 9" />
+          <rect className="map-security-trailer__body" x="0" y="0" width="94" height="44" rx="5" />
+          <rect className="map-security-trailer__solar" x="8" y="7" width="35" height="30" rx="2" />
+          <rect className="map-security-trailer__solar" x="51" y="7" width="35" height="30" rx="2" />
+          <circle className="map-security-trailer__mast" cx="47" cy="22" r="9" />
+          <path className="map-security-trailer__camera" d="M47 13V-18l15-8" />
+          <circle className="map-security-trailer__camera-head" cx="64" cy="-27" r="6" />
+        </g>
+        <text className="map-minor-label" x="333" y="346">MOBILE CAMERA / PTZ-01</text>
+        <text className="map-minor-label" x="520" y="96">EQUIPMENT LAYDOWN</text>
+        <text className="map-minor-label" x="28" y="414">CEDAR ACCESS ROAD</text>
+        <text className="map-minor-label" x="176" y="374">SITE GATE</text>
       </>
     );
   }
@@ -79,6 +83,9 @@ function MapBase({ mode }) {
 
 function DemoMap({ scenario, selected, onSelect, layers }) {
   const ticketSelected = selected.type === "ticket";
+  const selectedAlert = scenario.alerts.find((alert) => alert.id === selected.id);
+  const activeSensorId = selectedAlert?.sensor?.replace("Thistle ", "");
+  const isSecurity = scenario.mode === "security";
 
   const activate = (selection) => (event) => {
     if (event.type === "keydown" && !["Enter", " "].includes(event.key)) return;
@@ -87,7 +94,7 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
   };
 
   return (
-    <div className="demo-map-shell">
+    <div className={`demo-map-shell demo-map-shell--${scenario.mode}`}>
       <div className="demo-map-toolbar">
         <div>
           <span>Fictional site plan</span>
@@ -95,7 +102,7 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
         </div>
         <div className="demo-map-instruction">
           <Icon name="map" />
-          <span>Select the blue zone or a detection</span>
+          <span>{isSecurity ? "Select the monitored area or a queued event" : "Select the blue zone or a detection"}</span>
         </div>
         <div className="demo-map-time">
           <span>Scenario time</span>
@@ -104,7 +111,7 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
       </div>
       <div className="demo-map-stage">
         <svg
-          className="demo-map"
+          className={`demo-map demo-map--${scenario.mode}`}
           viewBox="0 0 820 480"
           role="img"
           aria-label={`${scenario.location} interactive demo map`}
@@ -120,6 +127,21 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
 
           <MapBase mode={scenario.mode} />
           <rect className="map-grid" x="22" y="24" width="776" height="432" rx="18" />
+
+          {isSecurity && layers.assets ? (
+            <g className="map-camera-cue" aria-hidden="true">
+              <path className="map-camera-coverage" d="M350 251 690 142 690 354Z" />
+              {selectedAlert?.requiresConfirmation ? (
+                <>
+                  <path className="map-camera-cue-line" d={`M350 251L${selectedAlert.x} ${selectedAlert.y}`} />
+                  <g className="map-camera-cue-label" transform="translate(406 218)">
+                    <rect width="86" height="22" rx="11" />
+                    <text x="43" y="14">CAMERA CUED</text>
+                  </g>
+                </>
+              ) : null}
+            </g>
+          ) : null}
 
           {layers.assets
             ? scenario.assets.map((asset) => (
@@ -151,9 +173,14 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
 
           {layers.thistle
             ? scenario.sensors.map((sensor) => (
-                <g className="map-sensor" key={sensor.id} transform={`translate(${sensor.x} ${sensor.y})`}>
-                  <circle r="8" />
-                  <circle r="2.5" />
+                <g
+                  className={`map-sensor ${isSecurity ? "map-sensor--security" : ""} ${sensor.id === activeSensorId ? "map-sensor--active" : ""}`}
+                  key={sensor.id}
+                  transform={`translate(${sensor.x} ${sensor.y})`}
+                >
+                  {isSecurity ? <circle className="map-sensor__range" r="18" /> : null}
+                  <circle className="map-sensor__body" r="8" />
+                  <circle className="map-sensor__core" r="2.5" />
                   <text x="11" y="4">{sensor.id}</text>
                 </g>
               ))
@@ -190,10 +217,22 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
         </svg>
 
         <div className="demo-map-legend" aria-label="Map legend">
-          {scenario.mode === "excavation" ? <><span><i className="legend-line legend-line--gas" />Gas</span><span><i className="legend-line legend-line--water" />Water</span></> : null}
-          <span><i className="legend-zone" />Context zone</span>
-          <span><i className="legend-sensor" />Thistle</span>
-          <span><i className="legend-alert" />Detection</span>
+          {isSecurity ? (
+            <>
+              <span><i className="legend-zone" />Monitored area</span>
+              <span><i className="legend-sensor" />Thistle cue node</span>
+              <span><i className="legend-camera" />Mobile camera</span>
+              <span><i className="legend-alert" />Queued event</span>
+            </>
+          ) : (
+            <>
+              <span><i className="legend-line legend-line--gas" />Gas</span>
+              <span><i className="legend-line legend-line--water" />Water</span>
+              <span><i className="legend-zone" />811 zone</span>
+              <span><i className="legend-sensor" />Thistle</span>
+              <span><i className="legend-alert" />Detection</span>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -218,7 +257,10 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert, confir
         <dl className="demo-context-list">
           <div><dt>Designated scope</dt><dd>{scenario.ticket.scope}</dd></div>
           <div><dt>Context window</dt><dd>{scenario.ticket.window}</dd></div>
-          <div><dt>Map relationship</dt><dd>The highlighted polygon is the area this record supports.</dd></div>
+          <div>
+            <dt>Map relationship</dt>
+            <dd>{scenario.mode === "security" ? "The highlighted area shows the Thistle cue perimeter and its camera handoff." : "The highlighted polygon is the area this record supports."}</dd>
+          </div>
         </dl>
         <div className="demo-inspector__prompt">
           <Icon name="sensor" />
@@ -266,35 +308,26 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert, confir
         ))}
       </div>
 
-      <div className="demo-reasoning">
-        <span className="demo-kicker">Why this result</span>
-        <ol>
-          {selectedAlert.reasons.map((reason) => (
-            <li key={reason}>
-              <Icon name="check" />
-              <span>{reason}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div className={`demo-action demo-action--${selectedAlert.priority.toLowerCase()}`}>
-        <span>Recommended operator response</span>
-        <strong>{selectedAlert.action}</strong>
-        <p>Decision support only. A human remains responsible for the field response.</p>
-      </div>
-
       {selectedAlert.requiresConfirmation ? (
         <div className="demo-confirmation">
-          <div>
+          <div className="demo-confirmation__cue">
+            <span className="demo-confirmation__camera"><Icon name="camera" /></span>
+            <div>
+              <span className="demo-kicker">Verification handoff</span>
+              <strong>{selectedAlert.verification.source} → {selectedAlert.verification.target}</strong>
+              <small>Simulated camera cue · no live video connected</small>
+            </div>
+            <StateBadge tone="context">{selectedAlert.verification.status}</StateBadge>
+          </div>
+          <div className="demo-confirmation__prompt">
             <span className="demo-kicker">Operator confirmation</span>
-            <strong>What does the queued activity represent?</strong>
+            <strong>What does the camera check show?</strong>
           </div>
           <div className="demo-confirmation__options" role="group" aria-label="Classify queued activity">
             {[
-              ["authorized", "Authorized work"],
+              ["authorized", "Expected / authorized"],
               ["unexpected", "Unexpected activity"],
-              ["unclear", "Not enough information"],
+              ["unclear", "Camera inconclusive"],
             ].map(([value, label]) => (
               <button
                 key={value}
@@ -309,19 +342,38 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert, confir
           </div>
           {confirmation ? (
             <div className={`demo-confirmation__result demo-confirmation__result--${confirmation}`} aria-live="polite">
-              <strong>{confirmation === "authorized" ? "Confirmed authorized" : confirmation === "unexpected" ? "Confirmed unexpected" : "Follow-up needed"}</strong>
+              <strong>{confirmation === "authorized" ? "Verified expected" : confirmation === "unexpected" ? "Verified unexpected" : "Camera inconclusive"}</strong>
               <span>
                 {confirmation === "authorized"
-                  ? "Return the event to monitoring."
+                  ? "Log the event and return the site to monitoring."
                   : confirmation === "unexpected"
                   ? "Escalate through the site's response plan."
-                  : "Keep the event queued and request another check."}
+                  : "Keep the event queued and request another verification source."}
               </span>
               <small>Demo only · no response was sent</small>
             </div>
           ) : null}
+          <p className="demo-confirmation__boundary">Riskseer supplies context and records the choice. The operator owns the classification and response.</p>
         </div>
-      ) : null}
+      ) : (
+        <div className={`demo-action demo-action--${selectedAlert.priority.toLowerCase()}`}>
+          <span>Recommended operator response</span>
+          <strong>{selectedAlert.action}</strong>
+          <p>Decision support only. A human remains responsible for the field response.</p>
+        </div>
+      )}
+
+      <div className="demo-reasoning">
+        <span className="demo-kicker">Why this result</span>
+        <ol>
+          {selectedAlert.reasons.map((reason) => (
+            <li key={reason}>
+              <Icon name="check" />
+              <span>{reason}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
     </aside>
   );
 }
@@ -448,11 +500,25 @@ export default function ScenarioDemo() {
             <p>{scenario.summary}</p>
           </div>
           <div className="demo-flow" aria-label="System flow">
-            <span><Icon name="sensor" />Thistle detects</span>
-            <i>→</i>
-            <span><Icon name="ticket" />Context compares</span>
-            <i>→</i>
-            <span><RiskseerMark className="demo-flow__mark" />Riskseer interprets</span>
+            {scenario.mode === "security" ? (
+              <>
+                <span><Icon name="sensor" />Thistle detects</span>
+                <i>→</i>
+                <span><RiskseerMark className="demo-flow__mark" />Riskseer checks</span>
+                <i>→</i>
+                <span><Icon name="camera" />Camera is cued</span>
+                <i>→</i>
+                <span><Icon name="check" />Operator confirms</span>
+              </>
+            ) : (
+              <>
+                <span><Icon name="sensor" />Thistle detects</span>
+                <i>→</i>
+                <span><Icon name="ticket" />811 context compares</span>
+                <i>→</i>
+                <span><RiskseerMark className="demo-flow__mark" />Riskseer interprets</span>
+              </>
+            )}
           </div>
         </section>
 
@@ -514,15 +580,15 @@ export default function ScenarioDemo() {
             <div className="demo-layer-controls" aria-label="Map layers">
               <span><Icon name="layers" />Layers</span>
               {[
-                ["ticket", scenario.mode === "excavation" ? "811 zone" : "Site perimeter"],
-                ["assets", "Underground assets"],
-                ["thistle", "Thistle signals"],
+                ["ticket", scenario.mode === "excavation" ? "811 zone" : "Monitored area"],
+                ["assets", scenario.mode === "excavation" ? "Underground assets" : "Camera cue"],
+                ["thistle", scenario.mode === "excavation" ? "Thistle signals" : "Thistle cue nodes"],
               ].map(([key, label]) => (
-                <label key={key} className={!scenario.assets.length && key === "assets" ? "demo-layer--disabled" : ""}>
+                <label key={key} className={scenario.mode === "excavation" && !scenario.assets.length && key === "assets" ? "demo-layer--disabled" : ""}>
                   <input
                     type="checkbox"
                     checked={layers[key]}
-                    disabled={!scenario.assets.length && key === "assets"}
+                    disabled={scenario.mode === "excavation" && !scenario.assets.length && key === "assets"}
                     onChange={(event) => setLayers((current) => ({ ...current, [key]: event.target.checked }))}
                   />
                   <span>{label}</span>
