@@ -10,6 +10,16 @@ and response posture. The optional OpenAI Investigator reads that saved result
 through bounded tools and produces a concise, evidence-cited brief. It cannot
 change or soften the backend decision.
 
+## Live competition demo
+
+[Open Riskseer](https://silasp1.github.io/Riskseer/)
+
+GitHub Pages builds a browser-ready version of the three-case competition demo
+whenever the demo branch changes. It uses the same deterministic Python engine
+to generate the case payload during deployment. The OpenAI Investigator is not
+enabled on the public static site because GitHub Pages cannot securely run the
+Python API or hold an API key.
+
 ## Quick start
 
 Python 3.10+ and Node.js 20+ are recommended.
