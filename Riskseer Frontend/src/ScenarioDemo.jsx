@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { DEMO_SCENARIOS } from "./demoScenarios";
+import RiskseerMark from "./RiskseerMark";
 import "./ScenarioDemo.css";
 
 function Icon({ name }) {
@@ -30,13 +31,23 @@ function MapBase({ mode }) {
         <rect className="map-ground" x="22" y="24" width="776" height="432" rx="18" />
         <path className="map-road" d="M0 402H820" />
         <path className="map-road-edge" d="M0 360H820" />
-        <rect className="map-building" x="282" y="152" width="174" height="92" rx="4" />
+        <rect className="map-building" x="266" y="158" width="108" height="80" rx="4" />
         <rect className="map-container" x="504" y="146" width="74" height="30" rx="3" />
         <rect className="map-container" x="504" y="188" width="74" height="30" rx="3" />
         <rect className="map-container" x="504" y="230" width="74" height="30" rx="3" />
         <path className="map-fence" d="M182 348 210 104h444l36 244H182Z" />
         <path className="map-gate" d="M182 286h45" />
-        <text className="map-label" x="302" y="202">EQUIPMENT STORAGE</text>
+        <g className="map-security-trailer" transform="translate(388 184)">
+          <rect x="0" y="0" width="98" height="52" rx="5" />
+          <rect className="map-security-trailer__door" x="70" y="12" width="18" height="40" rx="2" />
+          <circle cx="20" cy="56" r="6" />
+          <circle cx="78" cy="56" r="6" />
+          <path d="M49 0V-32M38-23h22M38-23l-8-8M60-23l8-8" />
+          <circle className="map-security-trailer__camera" cx="30" cy="-31" r="5" />
+          <circle className="map-security-trailer__camera" cx="68" cy="-31" r="5" />
+        </g>
+        <text className="map-label" x="437" y="260">THISTLE SECURITY TRAILER</text>
+        <text className="map-minor-label" x="302" y="202">EQUIPMENT STORAGE</text>
         <text className="map-minor-label" x="42" y="394">CEDAR ACCESS ROAD</text>
         <text className="map-minor-label" x="500" y="128">MATERIAL ROW</text>
       </>
@@ -81,6 +92,10 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
         <div>
           <span>Fictional site plan</span>
           <strong>{scenario.location}</strong>
+        </div>
+        <div className="demo-map-instruction">
+          <Icon name="map" />
+          <span>Select the blue zone or a detection</span>
         </div>
         <div className="demo-map-time">
           <span>Scenario time</span>
@@ -185,7 +200,7 @@ function DemoMap({ scenario, selected, onSelect, layers }) {
   );
 }
 
-function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert }) {
+function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert, confirmation, onConfirm }) {
   if (selected.type === "ticket") {
     return (
       <aside className="demo-inspector">
@@ -196,7 +211,7 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert }) {
         <div className="demo-inspector__title">
           <Icon name="ticket" />
           <div>
-            <span>811 / site record</span>
+            <span>{scenario.mode === "security" ? "Temporary security record" : "811 / site record"}</span>
             <h2>{scenario.ticket.id}</h2>
           </div>
         </div>
@@ -268,6 +283,45 @@ function ContextPanel({ scenario, selected, selectedAlert, onSelectAlert }) {
         <strong>{selectedAlert.action}</strong>
         <p>Decision support only. A human remains responsible for the field response.</p>
       </div>
+
+      {selectedAlert.requiresConfirmation ? (
+        <div className="demo-confirmation">
+          <div>
+            <span className="demo-kicker">Operator confirmation</span>
+            <strong>What does the queued activity represent?</strong>
+          </div>
+          <div className="demo-confirmation__options" role="group" aria-label="Classify queued activity">
+            {[
+              ["authorized", "Authorized work"],
+              ["unexpected", "Unexpected activity"],
+              ["unclear", "Not enough information"],
+            ].map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                className={confirmation === value ? "demo-confirmation__selected" : ""}
+                aria-pressed={confirmation === value}
+                onClick={() => onConfirm(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {confirmation ? (
+            <div className={`demo-confirmation__result demo-confirmation__result--${confirmation}`} aria-live="polite">
+              <strong>{confirmation === "authorized" ? "Confirmed authorized" : confirmation === "unexpected" ? "Confirmed unexpected" : "Follow-up needed"}</strong>
+              <span>
+                {confirmation === "authorized"
+                  ? "Return the event to monitoring."
+                  : confirmation === "unexpected"
+                  ? "Escalate through the site's response plan."
+                  : "Keep the event queued and request another check."}
+              </span>
+              <small>Demo only · no response was sent</small>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </aside>
   );
 }
@@ -280,6 +334,7 @@ export default function ScenarioDemo() {
   );
   const [selected, setSelected] = useState({ type: "alert", id: scenario.selectedAlertId });
   const [layers, setLayers] = useState({ ticket: true, assets: true, thistle: true });
+  const [confirmation, setConfirmation] = useState(null);
 
   const selectedAlert =
     scenario.alerts.find((alert) => alert.id === selected.id) || scenario.alerts[0];
@@ -289,14 +344,37 @@ export default function ScenarioDemo() {
     setScenarioId(nextScenario.id);
     setSelected({ type: "alert", id: nextScenario.selectedAlertId });
     setLayers({ ticket: true, assets: true, thistle: true });
+    setConfirmation(null);
   };
-  const selectAlert = (id) => setSelected({ type: "alert", id });
+  const selectItem = (item) => {
+    setSelected(item);
+    setConfirmation(null);
+  };
+  const selectAlert = (id) => selectItem({ type: "alert", id });
+  const navigateScenarios = (event, index) => {
+    const keyMoves = {
+      ArrowRight: (index + 1) % DEMO_SCENARIOS.length,
+      ArrowLeft: (index - 1 + DEMO_SCENARIOS.length) % DEMO_SCENARIOS.length,
+      Home: 0,
+      End: DEMO_SCENARIOS.length - 1,
+    };
+    const nextIndex = keyMoves[event.key];
+    if (nextIndex === undefined) return;
+    event.preventDefault();
+    selectScenario(DEMO_SCENARIOS[nextIndex].id);
+    event.currentTarget.parentElement.children[nextIndex].focus();
+  };
+
+  const selectionAnnouncement =
+    selected.type === "ticket"
+      ? `Selected context record ${scenario.ticket.id}`
+      : `Selected Thistle alert ${selectedAlert.id}: ${selectedAlert.title}`;
 
   return (
     <div className="demo-app">
       <header className="demo-header">
         <div className="demo-brand">
-          <span className="demo-brand__mark">R</span>
+          <RiskseerMark className="demo-brand__mark" labelled />
           <div>
             <strong>Riskseer</strong>
             <span>Thistle + operational context</span>
@@ -327,9 +405,13 @@ export default function ScenarioDemo() {
                 key={item.id}
                 type="button"
                 role="tab"
+                id={`demo-scenario-tab-${item.id}`}
+                aria-controls="demo-scenario-panel"
                 aria-selected={item.id === scenario.id}
+                tabIndex={item.id === scenario.id ? 0 : -1}
                 className={item.id === scenario.id ? "demo-scenario-tab--active" : ""}
                 onClick={() => selectScenario(item.id)}
+                onKeyDown={(event) => navigateScenarios(event, index)}
               >
                 <span>0{index + 1}</span>
                 <strong>{item.label}</strong>
@@ -339,7 +421,27 @@ export default function ScenarioDemo() {
           </div>
         </section>
 
-        <section className="demo-scenario-summary">
+        <ol className="demo-guide" aria-label="How to use this demo">
+          <li>
+            <span>1</span>
+            <div><strong>Choose a scenario</strong><small>Start with a field situation above.</small></div>
+          </li>
+          <li>
+            <span>2</span>
+            <div><strong>Select context or a signal</strong><small>Click the blue zone or an alert marker.</small></div>
+          </li>
+          <li>
+            <span>3</span>
+            <div><strong>Review the interpretation</strong><small>See why Riskseer monitors, queues, or escalates.</small></div>
+          </li>
+        </ol>
+
+        <section
+          className="demo-scenario-summary"
+          id="demo-scenario-panel"
+          role="tabpanel"
+          aria-labelledby={`demo-scenario-tab-${scenario.id}`}
+        >
           <div>
             <StateBadge tone={scenario.statusTone}>{scenario.status}</StateBadge>
             <h2>{scenario.headline}</h2>
@@ -348,11 +450,13 @@ export default function ScenarioDemo() {
           <div className="demo-flow" aria-label="System flow">
             <span><Icon name="sensor" />Thistle detects</span>
             <i>→</i>
-            <span><Icon name="ticket" />Context aligns</span>
+            <span><Icon name="ticket" />Context compares</span>
             <i>→</i>
-            <span><strong>R</strong>Riskseer interprets</span>
+            <span><RiskseerMark className="demo-flow__mark" />Riskseer interprets</span>
           </div>
         </section>
+
+        <p className="demo-sr-only" aria-live="polite">{selectionAnnouncement}</p>
 
         <section className="demo-workspace">
           <aside className="demo-event-rail">
@@ -363,8 +467,9 @@ export default function ScenarioDemo() {
             <div className="demo-event-list">
               <button
                 type="button"
+                aria-pressed={selected.type === "ticket"}
                 className={selected.type === "ticket" ? "demo-event--selected" : ""}
-                onClick={() => setSelected({ type: "ticket", id: scenario.ticket.id })}
+                onClick={() => selectItem({ type: "ticket", id: scenario.ticket.id })}
               >
                 <span className="demo-event__icon"><Icon name="ticket" /></span>
                 <span className="demo-event__copy">
@@ -377,6 +482,7 @@ export default function ScenarioDemo() {
                 <button
                   key={alert.id}
                   type="button"
+                  aria-pressed={selected.type === "alert" && selected.id === alert.id}
                   className={selected.type === "alert" && selected.id === alert.id ? "demo-event--selected" : ""}
                   onClick={() => selectAlert(alert.id)}
                 >
@@ -423,7 +529,7 @@ export default function ScenarioDemo() {
                 </label>
               ))}
             </div>
-            <DemoMap scenario={scenario} selected={selected} onSelect={setSelected} layers={layers} />
+            <DemoMap scenario={scenario} selected={selected} onSelect={selectItem} layers={layers} />
           </div>
 
           <ContextPanel
@@ -431,6 +537,8 @@ export default function ScenarioDemo() {
             selected={selected}
             selectedAlert={selectedAlert}
             onSelectAlert={selectAlert}
+            confirmation={confirmation}
+            onConfirm={setConfirmation}
           />
         </section>
       </main>
